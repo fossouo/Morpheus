@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Results must be reviewed and sanitized before being moved into tracked paths.
+private/
+raw/
+artifacts/
+logs/
+*.log
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+
+# Local environment and credentials.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
