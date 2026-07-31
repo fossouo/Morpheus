@@ -1,0 +1,39 @@
+{
+  "score_scale": 1000,
+  "thresholds": {
+    "min_target_gain": 50,
+    "max_control_drop": 20
+  },
+  "cases": [
+    {
+      "id": "safe_gain",
+      "baseline": {"target": 600, "control": 800},
+      "candidate": {"target": 660, "control": 790},
+      "expected": "promote"
+    },
+    {
+      "id": "regressive_gain",
+      "baseline": {"target": 600, "control": 800},
+      "candidate": {"target": 700, "control": 750},
+      "expected": "quarantine"
+    },
+    {
+      "id": "insufficient_gain",
+      "baseline": {"target": 600, "control": 800},
+      "candidate": {"target": 640, "control": 800},
+      "expected": "quarantine"
+    },
+    {
+      "id": "inclusive_boundary",
+      "baseline": {"target": 600, "control": 800},
+      "candidate": {"target": 650, "control": 780},
+      "expected": "promote"
+    },
+    {
+      "id": "target_regression",
+      "baseline": {"target": 600, "control": 800},
+      "candidate": {"target": 590, "control": 850},
+      "expected": "quarantine"
+    }
+  ]
+}

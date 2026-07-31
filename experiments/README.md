@@ -6,6 +6,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 |---|---|---|---|
 | EXP-000 | Research map and falsifiable claims | complete | proceed |
 | EXP-001 | Public-safety boundary checker | complete | pass |
+| EXP-002 | Held-out promotion gate | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
