@@ -1,5 +1,6 @@
 # EXP-NNN — Title
 
+- **Schema**: strict-v1
 - **Date**: YYYY-MM-DD
 - **Status**: planned
 - **Compute**: C0/C1/C2/C3/CM

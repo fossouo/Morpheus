@@ -1,0 +1,12 @@
+{
+  "schema": "strict-v1",
+  "cases": [
+    {"id": "valid_complete", "mutation": "none", "expected": "valid"},
+    {"id": "missing_hypothesis", "mutation": "missing_hypothesis", "expected": "invalid"},
+    {"id": "missing_baseline", "mutation": "missing_baseline", "expected": "invalid"},
+    {"id": "duplicate_metrics", "mutation": "duplicate_metrics", "expected": "invalid"},
+    {"id": "invalid_status", "mutation": "invalid_status", "expected": "invalid"},
+    {"id": "mismatched_id", "mutation": "mismatched_id", "expected": "invalid"},
+    {"id": "missing_decision", "mutation": "missing_decision", "expected": "invalid"}
+  ]
+}
