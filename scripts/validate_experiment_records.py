@@ -28,6 +28,21 @@ REQUIRED_SECTIONS = {
     "Limitations",
     "Decision",
 }
+TEMPLATE_SECTION_BODIES = {
+    "What specific question is being tested?",
+    "State a claim that can be rejected.",
+    "Describe the comparison and why it is fair.",
+    (
+        "List deterministic steps, pinned versions, seeds, and budgets. Never include private "
+        "addresses, hostnames, identifiers, credentials, paths, or raw system output."
+    ),
+    "Define quality, cost, latency, memory, and regression metrics before execution.",
+    "Declare both success and failure thresholds.",
+    "Report sanitized aggregates and uncertainty.",
+    "Separate observation from inference.",
+    "State the configuration scope and threats to validity.",
+}
+PLACEHOLDER_SECTION_BODIES = {"tbd", "todo", "pending", "n/a"}
 
 TITLE_RE = re.compile(r"^# (EXP-\d{3}) — \S.*$", re.MULTILINE)
 FILENAME_RE = re.compile(r"^(EXP-\d{3})-[a-z0-9][a-z0-9-]*\.md$")
@@ -63,6 +78,10 @@ def _section_body(text: str, section_name: str) -> str:
         end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
         return text[match.end():end].strip()
     return ""
+
+
+def _normalized_section_body(body: str) -> str:
+    return " ".join(body.strip("` \t\r\n.").split()).casefold()
 
 
 def validate_record(text: str, filename: str) -> list[str]:
@@ -110,6 +129,15 @@ def validate_record(text: str, filename: str) -> list[str]:
             errors.append(f"missing-section:{section}")
         elif section_counts[section] > 1:
             errors.append(f"duplicate-section:{section}")
+        else:
+            body = _section_body(text, section)
+            if not body:
+                errors.append(f"empty-section:{section}")
+            elif _normalized_section_body(body) in {
+                _normalized_section_body(value)
+                for value in PLACEHOLDER_SECTION_BODIES | TEMPLATE_SECTION_BODIES
+            }:
+                errors.append(f"placeholder-section:{section}")
 
     if section_counts["Decision"] == 1:
         decision = _section_body(text, "Decision").strip("` \n")

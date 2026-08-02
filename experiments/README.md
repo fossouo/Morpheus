@@ -8,6 +8,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-001 | Public-safety boundary checker | complete | pass |
 | EXP-002 | Held-out promotion gate | complete | pass |
 | EXP-003 | Machine-checkable experiment record | complete | pass |
+| EXP-004 | Section-body validation | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

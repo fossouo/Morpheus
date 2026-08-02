@@ -1,0 +1,14 @@
+{
+  "schema": "strict-v1-section-body-v1",
+  "cases": [
+    {"id": "valid_record", "mutation": "none", "expected": "valid"},
+    {"id": "empty_question", "mutation": "empty_question", "expected": "invalid"},
+    {"id": "whitespace_hypothesis", "mutation": "whitespace_hypothesis", "expected": "invalid"},
+    {"id": "tbd_baseline", "mutation": "tbd_baseline", "expected": "invalid"},
+    {"id": "todo_protocol", "mutation": "todo_protocol", "expected": "invalid"},
+    {"id": "pending_metrics", "mutation": "pending_metrics", "expected": "invalid"},
+    {"id": "template_question", "mutation": "template_question", "expected": "invalid"},
+    {"id": "template_hypothesis", "mutation": "template_hypothesis", "expected": "invalid"},
+    {"id": "template_acceptance", "mutation": "template_acceptance", "expected": "invalid"}
+  ]
+}
