@@ -9,6 +9,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-002 | Held-out promotion gate | complete | pass |
 | EXP-003 | Machine-checkable experiment record | complete | pass |
 | EXP-004 | Section-body validation | complete | pass |
+| EXP-005 | Metadata-value validation | complete | fail |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

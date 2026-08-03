@@ -1,0 +1,13 @@
+{
+  "schema": "strict-v1-metadata-value-v1",
+  "cases": [
+    {"id": "valid_data", "mutation": "none", "expected": "valid"},
+    {"id": "template_data", "mutation": "template_data", "expected": "invalid"},
+    {"id": "tbd_data", "mutation": "tbd_data", "expected": "invalid"},
+    {"id": "todo_data", "mutation": "todo_data", "expected": "invalid"},
+    {"id": "pending_data", "mutation": "pending_data", "expected": "invalid"},
+    {"id": "na_data", "mutation": "na_data", "expected": "invalid"},
+    {"id": "empty_data", "mutation": "empty_data", "expected": "invalid"},
+    {"id": "whitespace_data", "mutation": "whitespace_data", "expected": "invalid"}
+  ]
+}
