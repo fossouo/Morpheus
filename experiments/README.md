@@ -10,6 +10,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-003 | Machine-checkable experiment record | complete | pass |
 | EXP-004 | Section-body validation | complete | pass |
 | EXP-005 | Metadata-value validation | complete | fail |
+| EXP-006 | Line-bounded metadata validation | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

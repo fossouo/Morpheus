@@ -17,6 +17,10 @@ New experiment reports declare `Schema: strict-v1`. The validator checks their r
 metadata and sections, including rejection of empty bodies and known template placeholders;
 historical reports without a schema declaration remain legacy records.
 
+Required metadata values are parsed from their own line. Empty values are invalid, and the
+unchanged template `Data` value plus the exact short markers declared by the validator are
+rejected as structural placeholders rather than semantic-quality judgments.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

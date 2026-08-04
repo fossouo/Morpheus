@@ -46,8 +46,23 @@ PLACEHOLDER_SECTION_BODIES = {"tbd", "todo", "pending", "n/a"}
 
 TITLE_RE = re.compile(r"^# (EXP-\d{3}) — \S.*$", re.MULTILINE)
 FILENAME_RE = re.compile(r"^(EXP-\d{3})-[a-z0-9][a-z0-9-]*\.md$")
-METADATA_RE = re.compile(r"^- \*\*(?P<key>[^*]+)\*\*:\s*(?P<value>.*?)\s*$", re.MULTILINE)
+LEGACY_METADATA_RE = re.compile(
+    r"^- \*\*(?P<key>[^*]+)\*\*:\s*(?P<value>.*?)\s*$", re.MULTILINE
+)
+METADATA_RE = re.compile(
+    r"^- \*\*(?P<key>[^*\r\n]+)\*\*:[ \t]*(?P<value>[^\r\n]*?)[ \t]*$",
+    re.MULTILINE,
+)
 SECTION_RE = re.compile(r"^## (?P<name>[^\n]+?)\s*$", re.MULTILINE)
+PLACEHOLDER_METADATA_VALUES = {
+    "Data": {
+        "synthetic/public/other-safe-description",
+        "tbd",
+        "todo",
+        "pending",
+        "n/a",
+    }
+}
 
 
 def title_errors(text: str, filename: str) -> list[str]:
@@ -63,9 +78,11 @@ def title_errors(text: str, filename: str) -> list[str]:
     return errors
 
 
-def _metadata_values(text: str) -> dict[str, list[str]]:
+def metadata_values(
+    text: str, metadata_re: re.Pattern[str] = METADATA_RE
+) -> dict[str, list[str]]:
     values: dict[str, list[str]] = {}
-    for match in METADATA_RE.finditer(text):
+    for match in metadata_re.finditer(text):
         values.setdefault(match.group("key"), []).append(match.group("value"))
     return values
 
@@ -84,15 +101,28 @@ def _normalized_section_body(body: str) -> str:
     return " ".join(body.strip("` \t\r\n.").split()).casefold()
 
 
-def validate_record(text: str, filename: str) -> list[str]:
+def _normalized_metadata_value(value: str) -> str:
+    return " ".join(value.strip("` \t\r\n.").split()).casefold()
+
+
+def validate_record(
+    text: str,
+    filename: str,
+    *,
+    metadata_re: re.Pattern[str] = METADATA_RE,
+    placeholder_metadata_values: dict[str, set[str]] = PLACEHOLDER_METADATA_VALUES,
+) -> list[str]:
     errors = title_errors(text, filename)
-    metadata = _metadata_values(text)
+    metadata = metadata_values(text, metadata_re)
     schema_values = metadata.get("Schema", [])
 
     if not schema_values:
         return errors
     if len(schema_values) != 1:
         errors.append("duplicate-metadata:Schema")
+        return errors
+    if not schema_values[0]:
+        errors.append("missing-metadata:Schema")
         return errors
     if schema_values[0] != STRICT_SCHEMA:
         errors.append("unsupported-schema")
@@ -104,6 +134,13 @@ def validate_record(text: str, filename: str) -> list[str]:
             errors.append(f"missing-metadata:{key}")
         elif len(values) > 1:
             errors.append(f"duplicate-metadata:{key}")
+
+    for key, placeholders in placeholder_metadata_values.items():
+        values = metadata.get(key, [])
+        if len(values) == 1 and _normalized_metadata_value(values[0]) in {
+            _normalized_metadata_value(value) for value in placeholders
+        }:
+            errors.append(f"placeholder-metadata:{key}")
 
     status_values = metadata.get("Status", [])
     if len(status_values) == 1 and status_values[0] not in ALLOWED_STATUSES:

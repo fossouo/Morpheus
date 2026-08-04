@@ -13,7 +13,10 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scripts.validate_experiment_records import METADATA_RE, validate_record  # noqa: E402
+from scripts.validate_experiment_records import (  # noqa: E402
+    LEGACY_METADATA_RE,
+    validate_record,
+)
 
 
 DEFAULT_FIXTURE = ROOT / "fixtures" / "metadata_value_cases.json"
@@ -131,8 +134,13 @@ def _normalized_value(value: str) -> str:
 
 
 def candidate_errors(text: str) -> list[str]:
-    errors = validate_record(text, FILENAME)
-    for match in METADATA_RE.finditer(text):
+    errors = validate_record(
+        text,
+        FILENAME,
+        metadata_re=LEGACY_METADATA_RE,
+        placeholder_metadata_values={},
+    )
+    for match in LEGACY_METADATA_RE.finditer(text):
         if match.group("key") == "Data" and _normalized_value(match.group("value")) in {
             _normalized_value(value) for value in PLACEHOLDER_DATA_VALUES
         }:
@@ -148,7 +156,14 @@ def evaluate_fixture(fixture: dict[str, Any]) -> list[dict[str, str]]:
             {
                 "id": case["id"],
                 "expected": case["expected"],
-                "baseline": "invalid" if validate_record(text, FILENAME) else "valid",
+                "baseline": "invalid"
+                if validate_record(
+                    text,
+                    FILENAME,
+                    metadata_re=LEGACY_METADATA_RE,
+                    placeholder_metadata_values={},
+                )
+                else "valid",
                 "candidate": "invalid" if candidate_errors(text) else "valid",
             }
         )
