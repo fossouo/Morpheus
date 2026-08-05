@@ -7,6 +7,7 @@ Before proposing a change:
 ```bash
 python3 -m unittest discover -s tests
 python3 scripts/validate_experiment_records.py .
+python3 scripts/validate_experiment_index.py .
 python3 scripts/check_public_safety.py .
 ```
 
@@ -20,6 +21,9 @@ historical reports without a schema declaration remain legacy records.
 Required metadata values are parsed from their own line. Empty values are invalid, and the
 unchanged template `Data` value plus the exact short markers declared by the validator are
 rejected as structural placeholders rather than semantic-quality judgments.
+
+Every `EXP-NNN` file must occur exactly once in the experiment index. Indexed status and
+verdict values must match the corresponding record.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

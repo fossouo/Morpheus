@@ -1,0 +1,13 @@
+{
+  "schema": "experiment-index-v1",
+  "cases": [
+    {"id": "valid_index", "mutation": "none", "expected": "valid"},
+    {"id": "missing_index_entry", "mutation": "missing_index_entry", "expected": "invalid"},
+    {"id": "duplicate_index_id", "mutation": "duplicate_index_id", "expected": "invalid"},
+    {"id": "orphan_replacement", "mutation": "orphan_replacement", "expected": "invalid"},
+    {"id": "status_mismatch", "mutation": "status_mismatch", "expected": "invalid"},
+    {"id": "verdict_mismatch", "mutation": "verdict_mismatch", "expected": "invalid"},
+    {"id": "invalid_status", "mutation": "invalid_status", "expected": "invalid"},
+    {"id": "missing_record", "mutation": "missing_record", "expected": "invalid"}
+  ]
+}
