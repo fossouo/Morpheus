@@ -38,6 +38,10 @@ INLINE_VERDICT_RE = re.compile(
     r"\.?\*\*[ \t]*$",
     re.MULTILINE | re.IGNORECASE,
 )
+RECORD_HEADING_RE = re.compile(
+    r"^# (?P<experiment_id>EXP-\d{3}) —(?P<title>[^\r\n]*)$",
+    re.MULTILINE,
+)
 
 
 def split_gfm_row(line: str) -> list[str] | None:
@@ -118,7 +122,49 @@ def _record_decision(text: str) -> str | None:
     return None
 
 
-def consistency_findings(index_text: str, records: Mapping[str, str]) -> list[str]:
+def _rendered_index_title(title: str) -> str:
+    """Decode the escaped-pipe form supported by this repository's table parser."""
+    return title.replace(r"\|", "|")
+
+
+def _title_findings(
+    rows: list[dict[str, str]],
+    row_counts: Counter[str],
+    record_groups: dict[str, list[tuple[str, str]]],
+) -> list[str]:
+    findings: list[str] = []
+    single_rows = {row["ID"]: row for row in rows if row_counts[row["ID"]] == 1}
+    for experiment_id in sorted(set(single_rows) & set(record_groups)):
+        if len(record_groups[experiment_id]) != 1:
+            continue
+        _, text = record_groups[experiment_id][0]
+        headings = list(RECORD_HEADING_RE.finditer(text))
+        if not headings:
+            findings.append(f"missing-record-heading:{experiment_id}")
+            continue
+        if len(headings) > 1:
+            findings.append(f"duplicate-record-heading:{experiment_id}")
+            continue
+        heading = headings[0]
+        if heading.group("experiment_id") != experiment_id:
+            findings.append(f"record-heading-id-mismatch:{experiment_id}")
+            continue
+        record_title = heading.group("title").strip()
+        if not record_title:
+            findings.append(f"missing-record-title:{experiment_id}")
+            continue
+        index_title = _rendered_index_title(single_rows[experiment_id]["Title"])
+        if index_title != record_title:
+            findings.append(f"title-mismatch:{experiment_id}")
+    return findings
+
+
+def consistency_findings(
+    index_text: str,
+    records: Mapping[str, str],
+    *,
+    check_titles: bool = True,
+) -> list[str]:
     rows, findings = parse_index(index_text)
     record_groups: dict[str, list[tuple[str, str]]] = {}
     for filename, text in records.items():
@@ -158,6 +204,9 @@ def consistency_findings(index_text: str, records: Mapping[str, str]) -> list[st
             findings.append(f"unreadable-record-verdict:{experiment_id}")
         elif single_rows[experiment_id]["Verdict"] != decision:
             findings.append(f"verdict-mismatch:{experiment_id}")
+
+    if check_titles:
+        findings.extend(_title_findings(rows, row_counts, record_groups))
 
     return sorted(set(findings))
 

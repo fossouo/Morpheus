@@ -1,0 +1,12 @@
+{
+  "schema": "experiment-title-v1",
+  "cases": [
+    {"id": "valid_plain_title", "index_title": "Alpha", "heading": "# EXP-900 — Alpha", "expected": "valid"},
+    {"id": "valid_escaped_pipe", "index_title": "Alpha \\| Beta", "heading": "# EXP-900 — Alpha | Beta", "expected": "valid"},
+    {"id": "title_mismatch", "index_title": "Alpha", "heading": "# EXP-900 — Beta", "expected": "invalid"},
+    {"id": "heading_id_mismatch", "index_title": "Alpha", "heading": "# EXP-901 — Alpha", "expected": "invalid"},
+    {"id": "missing_heading", "index_title": "Alpha", "heading": "Synthetic record", "expected": "invalid"},
+    {"id": "duplicate_heading", "index_title": "Alpha", "heading": "# EXP-900 — Alpha\n# EXP-900 — Alpha", "expected": "invalid"},
+    {"id": "empty_heading_title", "index_title": "Alpha", "heading": "# EXP-900 — ", "expected": "invalid"}
+  ]
+}

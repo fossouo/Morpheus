@@ -12,6 +12,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-005 | Metadata-value validation | complete | fail |
 | EXP-006 | Line-bounded metadata validation | complete | pass |
 | EXP-007 | Experiment-index consistency | complete | pass |
+| EXP-008 | Experiment-title consistency | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

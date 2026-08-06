@@ -23,7 +23,8 @@ unchanged template `Data` value plus the exact short markers declared by the val
 rejected as structural placeholders rather than semantic-quality judgments.
 
 Every `EXP-NNN` file must occur exactly once in the experiment index. Indexed status and
-verdict values must match the corresponding record.
+verdict values must match the corresponding record. The indexed title must match the record
+heading; a backslash-escaped table pipe is compared with its rendered literal pipe.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

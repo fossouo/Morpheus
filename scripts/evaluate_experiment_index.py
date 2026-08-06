@@ -125,7 +125,7 @@ def evaluate_fixture(fixture: dict[str, Any]) -> list[dict[str, str]]:
     results: list[dict[str, str]] = []
     for case in fixture["cases"]:
         index_text, records = apply_mutation(case["mutation"])
-        findings = consistency_findings(index_text, records)
+        findings = consistency_findings(index_text, records, check_titles=False)
         results.append(
             {
                 "id": case["id"],
