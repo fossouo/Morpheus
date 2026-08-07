@@ -1,0 +1,32 @@
+{
+  "schema": "expert-package-v1",
+  "package_id": "synthetic-summarizer",
+  "version": "1.0.0",
+  "scope": {
+    "include": ["summarize synthetic notices"],
+    "exclude": ["modify source records"]
+  },
+  "provenance": [
+    {
+      "source_id": "SRC-001",
+      "kind": "synthetic",
+      "reference": "fixture:synthetic-notices-v1"
+    }
+  ],
+  "layers": {
+    "knowledge": ["synthetic-notice-format-v1"],
+    "experience": [],
+    "skills": ["summarize-notice-v1"],
+    "tools": [],
+    "adapters": []
+  },
+  "tests": {
+    "target": ["TGT-001"],
+    "held_out_regression": ["REG-001"]
+  },
+  "expires_on": "2026-09-01",
+  "lifecycle": {
+    "state": "quarantine",
+    "rollback": {"mode": "unload"}
+  }
+}

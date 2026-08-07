@@ -1,0 +1,47 @@
+{
+  "schema": "expert-manifest-cases-v1",
+  "base_manifest": {
+    "schema": "expert-package-v1",
+    "package_id": "synthetic-summarizer",
+    "version": "1.0.0",
+    "scope": {
+      "include": ["summarize synthetic notices"],
+      "exclude": ["modify source records"]
+    },
+    "provenance": [
+      {
+        "source_id": "SRC-001",
+        "kind": "synthetic",
+        "reference": "fixture:synthetic-notices-v1"
+      }
+    ],
+    "layers": {
+      "knowledge": ["synthetic-notice-format-v1"],
+      "experience": [],
+      "skills": ["summarize-notice-v1"],
+      "tools": [],
+      "adapters": []
+    },
+    "tests": {
+      "target": ["TGT-001"],
+      "held_out_regression": ["REG-001"]
+    },
+    "expires_on": "2026-09-01",
+    "lifecycle": {
+      "state": "quarantine",
+      "rollback": {"mode": "unload"}
+    }
+  },
+  "cases": [
+    {"id": "valid_minimal", "mutation": {"op": "none"}, "expected": "valid"},
+    {"id": "empty_scope_exclude", "mutation": {"op": "set", "path": ["scope", "exclude"], "value": []}, "expected": "invalid"},
+    {"id": "empty_provenance", "mutation": {"op": "set", "path": ["provenance"], "value": []}, "expected": "invalid"},
+    {"id": "empty_held_out_regression", "mutation": {"op": "set", "path": ["tests", "held_out_regression"], "value": []}, "expected": "invalid"},
+    {"id": "invalid_expiry", "mutation": {"op": "set", "path": ["expires_on"], "value": "2026-02-30"}, "expected": "invalid"},
+    {"id": "premature_promotion", "mutation": {"op": "set", "path": ["lifecycle", "state"], "value": "promoted"}, "expected": "invalid"},
+    {"id": "missing_rollback", "mutation": {"op": "remove", "path": ["lifecycle", "rollback"]}, "expected": "invalid"},
+    {"id": "merged_layers", "mutation": {"op": "remove", "path": ["layers", "experience"]}, "expected": "invalid"},
+    {"id": "malformed_version", "mutation": {"op": "set", "path": ["version"], "value": "latest"}, "expected": "invalid"},
+    {"id": "unexpected_executable_field", "mutation": {"op": "set", "path": ["command"], "value": "synthetic-action"}, "expected": "invalid"}
+  ]
+}
