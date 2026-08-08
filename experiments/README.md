@@ -14,6 +14,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-007 | Experiment-index consistency | complete | pass |
 | EXP-008 | Experiment-title consistency | complete | pass |
 | EXP-009 | Expert-package manifest contract | complete | pass |
+| EXP-010 | Pinned reference-date expiry gate | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

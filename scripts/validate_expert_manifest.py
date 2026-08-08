@@ -39,7 +39,10 @@ def _string_list(value: Any, *, nonempty: bool) -> bool:
     )
 
 
-def validate_manifest(manifest: Any) -> list[str]:
+def validate_manifest(
+    manifest: Any, *, reference_date: date | None = None
+) -> list[str]:
+    """Validate structure and, when supplied, expiry against a pinned date."""
     if not isinstance(manifest, dict):
         return ["manifest-not-object"]
 
@@ -124,6 +127,8 @@ def validate_manifest(manifest: Any) -> list[str]:
         else:
             if parsed_expiry.isoformat() != expires_on:
                 errors.append("invalid-expiry")
+            elif reference_date is not None and parsed_expiry < reference_date:
+                errors.append("expired")
 
     lifecycle = manifest["lifecycle"]
     if not isinstance(lifecycle, dict) or set(lifecycle) != {"state", "rollback"}:
@@ -143,13 +148,24 @@ def validate_manifest(manifest: Any) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("manifest", type=Path)
+    parser.add_argument(
+        "--reference-date",
+        required=True,
+        help="pinned canonical date used for expiry evaluation (YYYY-MM-DD)",
+    )
     args = parser.parse_args()
+    try:
+        reference_date = date.fromisoformat(args.reference_date)
+    except ValueError:
+        parser.error("--reference-date must be a canonical calendar date (YYYY-MM-DD)")
+    if reference_date.isoformat() != args.reference_date:
+        parser.error("--reference-date must be a canonical calendar date (YYYY-MM-DD)")
     try:
         manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         print(f"expert-manifest: FAIL ({exc})")
         return 1
-    errors = validate_manifest(manifest)
+    errors = validate_manifest(manifest, reference_date=reference_date)
     if errors:
         for error in errors:
             print(error)

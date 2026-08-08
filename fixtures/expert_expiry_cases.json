@@ -1,0 +1,45 @@
+{
+  "schema": "expert-expiry-cases-v1",
+  "reference_date": "2026-08-08",
+  "base_manifest": {
+    "schema": "expert-package-v1",
+    "package_id": "synthetic-summarizer",
+    "version": "1.0.0",
+    "scope": {
+      "include": ["summarize synthetic notices"],
+      "exclude": ["modify source records"]
+    },
+    "provenance": [
+      {
+        "source_id": "SRC-001",
+        "kind": "synthetic",
+        "reference": "fixture:synthetic-notices-v1"
+      }
+    ],
+    "layers": {
+      "knowledge": ["synthetic-notice-format-v1"],
+      "experience": [],
+      "skills": ["summarize-notice-v1"],
+      "tools": [],
+      "adapters": []
+    },
+    "tests": {
+      "target": ["TGT-001"],
+      "held_out_regression": ["REG-001"]
+    },
+    "expires_on": "2026-08-09",
+    "lifecycle": {
+      "state": "quarantine",
+      "rollback": {"mode": "unload"}
+    }
+  },
+  "cases": [
+    {"id": "future_date", "expires_on": "2026-08-09", "expected": "valid"},
+    {"id": "same_day", "expires_on": "2026-08-08", "expected": "valid"},
+    {"id": "previous_day", "expires_on": "2026-08-07", "expected": "invalid"},
+    {"id": "year_old", "expires_on": "2025-08-08", "expected": "invalid"},
+    {"id": "invalid_calendar", "expires_on": "2026-02-30", "expected": "invalid"},
+    {"id": "noncanonical_compact", "expires_on": "20260809", "expected": "invalid"},
+    {"id": "non_string", "expires_on": 20260809, "expected": "invalid"}
+  ]
+}
