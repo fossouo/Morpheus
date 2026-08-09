@@ -1,0 +1,125 @@
+{
+  "schema": "expert-layer-identity-cases-v1",
+  "base_manifest": {
+    "schema": "expert-package-v1",
+    "package_id": "synthetic-summarizer",
+    "version": "1.0.0",
+    "scope": {
+      "include": ["summarize synthetic notices"],
+      "exclude": ["modify source records"]
+    },
+    "provenance": [
+      {
+        "source_id": "SRC-001",
+        "kind": "synthetic",
+        "reference": "fixture:synthetic-notices-v1"
+      }
+    ],
+    "layers": {
+      "knowledge": ["synthetic-notice-format-v1"],
+      "experience": [],
+      "skills": ["summarize-notice-v1"],
+      "tools": [],
+      "adapters": []
+    },
+    "tests": {
+      "target": ["TGT-001"],
+      "held_out_regression": ["REG-001"]
+    },
+    "expires_on": "2026-09-01",
+    "lifecycle": {
+      "state": "quarantine",
+      "rollback": {"mode": "unload"}
+    }
+  },
+  "cases": [
+    {
+      "id": "valid_disjoint",
+      "layers": {
+        "knowledge": ["knowledge-claim-v1"],
+        "experience": ["episode-summary-v1"],
+        "skills": ["summarize-v1"],
+        "tools": ["read-notice-v1"],
+        "adapters": ["notice-style-v1"]
+      },
+      "expected": "valid"
+    },
+    {
+      "id": "valid_sparse",
+      "layers": {
+        "knowledge": ["knowledge-only-v1"],
+        "experience": [],
+        "skills": [],
+        "tools": [],
+        "adapters": []
+      },
+      "expected": "valid"
+    },
+    {
+      "id": "knowledge_experience_collision",
+      "layers": {
+        "knowledge": ["shared-claim-v1"],
+        "experience": ["shared-claim-v1"],
+        "skills": [],
+        "tools": [],
+        "adapters": []
+      },
+      "expected": "invalid"
+    },
+    {
+      "id": "skill_tool_collision",
+      "layers": {
+        "knowledge": [],
+        "experience": [],
+        "skills": ["shared-procedure-v1"],
+        "tools": ["shared-procedure-v1"],
+        "adapters": []
+      },
+      "expected": "invalid"
+    },
+    {
+      "id": "adapter_knowledge_collision",
+      "layers": {
+        "knowledge": ["shared-specialization-v1"],
+        "experience": [],
+        "skills": [],
+        "tools": [],
+        "adapters": ["shared-specialization-v1"]
+      },
+      "expected": "invalid"
+    },
+    {
+      "id": "tool_adapter_collision",
+      "layers": {
+        "knowledge": [],
+        "experience": [],
+        "skills": [],
+        "tools": ["shared-interface-v1"],
+        "adapters": ["shared-interface-v1"]
+      },
+      "expected": "invalid"
+    },
+    {
+      "id": "three_layer_collision",
+      "layers": {
+        "knowledge": [],
+        "experience": ["shared-component-v1"],
+        "skills": ["shared-component-v1"],
+        "tools": ["shared-component-v1"],
+        "adapters": []
+      },
+      "expected": "invalid"
+    },
+    {
+      "id": "intra_layer_duplicate",
+      "layers": {
+        "knowledge": ["duplicate-v1", "duplicate-v1"],
+        "experience": [],
+        "skills": [],
+        "tools": [],
+        "adapters": []
+      },
+      "expected": "invalid"
+    }
+  ]
+}

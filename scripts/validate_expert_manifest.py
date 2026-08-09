@@ -40,7 +40,10 @@ def _string_list(value: Any, *, nonempty: bool) -> bool:
 
 
 def validate_manifest(
-    manifest: Any, *, reference_date: date | None = None
+    manifest: Any,
+    *,
+    reference_date: date | None = None,
+    enforce_layer_id_uniqueness: bool = True,
 ) -> list[str]:
     """Validate structure and, when supplied, expiry against a pinned date."""
     if not isinstance(manifest, dict):
@@ -104,9 +107,21 @@ def validate_manifest(
     if not isinstance(layers, dict) or set(layers) != LAYER_KEYS:
         errors.append("invalid-layer-keys")
     else:
+        valid_layer_lists = True
         for name in sorted(LAYER_KEYS):
             if not _string_list(layers[name], nonempty=False):
                 errors.append(f"invalid-layer-list:{name}")
+                valid_layer_lists = False
+        if enforce_layer_id_uniqueness and valid_layer_lists:
+            owners: dict[str, str] = {}
+            for name in sorted(LAYER_KEYS):
+                for layer_id in layers[name]:
+                    if layer_id in owners:
+                        errors.append(
+                            f"cross-layer-id-collision:{layer_id}:{owners[layer_id]}:{name}"
+                        )
+                    else:
+                        owners[layer_id] = name
 
     tests = manifest["tests"]
     if not isinstance(tests, dict) or set(tests) != {"target", "held_out_regression"}:

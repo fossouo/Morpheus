@@ -34,6 +34,10 @@ an unload rollback. Callers must supply a pinned reference date; the date-only p
 package as valid on `expires_on` and expired on later dates. Validation does not constitute
 promotion or evidence of runtime safety.
 
+Identifiers are unique both within and across the five expert layer lists. This exact,
+case-sensitive structural rule keeps one identifier from ambiguously naming knowledge,
+experience, a skill, a tool, or an adapter; it does not infer semantic equivalence.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.
