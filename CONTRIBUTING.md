@@ -9,6 +9,7 @@ python3 -m unittest discover -s tests
 python3 scripts/validate_experiment_records.py .
 python3 scripts/validate_experiment_index.py .
 python3 scripts/validate_expert_manifest.py templates/expert-package.json --reference-date 2026-08-08
+python3 scripts/evaluate_expert_lookup.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -37,6 +38,10 @@ promotion or evidence of runtime safety.
 Identifiers are unique both within and across the five expert layer lists. This exact,
 case-sensitive structural rule keeps one identifier from ambiguously naming knowledge,
 experience, a skill, a tool, or an adapter; it does not infer semantic equivalence.
+
+The EXP-012 evaluator exercises a quarantined expert as an unloadable non-parametric lookup
+layer. Its synthetic held-out target and regression cases demonstrate only exact-key behavior;
+passing them is not evidence of semantic retrieval or general language capability.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

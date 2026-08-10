@@ -16,6 +16,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-009 | Expert-package manifest contract | complete | pass |
 | EXP-010 | Pinned reference-date expiry gate | complete | pass |
 | EXP-011 | Cross-layer identifier uniqueness | complete | pass |
+| EXP-012 | Loadable non-parametric recall | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
@@ -27,3 +28,11 @@ legacy documents rather than being retroactively described as preregistered.
 
 The index is checked by `python3 scripts/validate_experiment_index.py .`. Every experiment file
 must appear exactly once, and its indexed status and verdict must match the record.
+
+## Bounded capability checkpoint
+
+The three successful experiments beginning with EXP-012 form a bounded checkpoint. At least one
+must show a new or improved behavior on held-out cases with a baseline and measured gap; schema,
+validator, contract, refactor, and test-count changes do not qualify alone. After the third
+successful run, compare all three experiments. If none establishes a capability gain, recommend
+pausing the daily loop or moving it to a weekly cadence without claiming progress.

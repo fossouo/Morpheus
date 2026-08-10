@@ -1,0 +1,67 @@
+{
+  "schema": "expert-lookup-cases-v1",
+  "reference_date": "2026-08-10",
+  "package": {
+    "manifest": {
+      "schema": "expert-package-v1",
+      "package_id": "synthetic-recall",
+      "version": "1.0.0",
+      "scope": {
+        "include": ["recall synthetic catalog tokens"],
+        "exclude": ["infer missing catalog tokens"]
+      },
+      "provenance": [
+        {
+          "source_id": "SRC-001",
+          "kind": "synthetic",
+          "reference": "fixture:synthetic-recall-v1"
+        }
+      ],
+      "layers": {
+        "knowledge": [
+          "atlas-entry-v1",
+          "birch-entry-v1",
+          "cinder-entry-v1",
+          "delta-entry-v1",
+          "ember-entry-v1",
+          "fjord-entry-v1"
+        ],
+        "experience": [],
+        "skills": ["exact-recall-v1"],
+        "tools": [],
+        "adapters": []
+      },
+      "tests": {
+        "target": ["TGT-001", "TGT-002", "TGT-003", "TGT-004", "TGT-005", "TGT-006"],
+        "held_out_regression": ["REG-001", "REG-002", "REG-003", "REG-004"]
+      },
+      "expires_on": "2026-09-01",
+      "lifecycle": {
+        "state": "quarantine",
+        "rollback": {"mode": "unload"}
+      }
+    },
+    "knowledge_records": [
+      {"id": "atlas-entry-v1", "value": "amber-17"},
+      {"id": "birch-entry-v1", "value": "blue-29"},
+      {"id": "cinder-entry-v1", "value": "coral-43"},
+      {"id": "delta-entry-v1", "value": "dune-61"},
+      {"id": "ember-entry-v1", "value": "elm-73"},
+      {"id": "fjord-entry-v1", "value": "frost-89"}
+    ]
+  },
+  "held_out_target": [
+    {"id": "TGT-001", "request": {"operation": "recall", "key": "delta-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "dune-61"},
+    {"id": "TGT-002", "request": {"operation": "recall", "key": "atlas-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "amber-17"},
+    {"id": "TGT-003", "request": {"operation": "recall", "key": "fjord-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "frost-89"},
+    {"id": "TGT-004", "request": {"operation": "recall", "key": "cinder-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "coral-43"},
+    {"id": "TGT-005", "request": {"operation": "recall", "key": "ember-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "elm-73"},
+    {"id": "TGT-006", "request": {"operation": "recall", "key": "birch-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "blue-29"}
+  ],
+  "held_out_regression": [
+    {"id": "REG-001", "request": {"operation": "echo", "value": "stable-alpha"}, "expected": "stable-alpha"},
+    {"id": "REG-002", "request": {"operation": "echo", "value": "stable-beta"}, "expected": "stable-beta"},
+    {"id": "REG-003", "request": {"operation": "recall", "key": "missing-entry-v1"}, "expected": "unknown"},
+    {"id": "REG-004", "request": {"operation": "echo", "value": "unknown"}, "expected": "unknown"}
+  ]
+}
