@@ -1,0 +1,92 @@
+{
+  "schema": "expert-composition-cases-v1",
+  "reference_date": "2026-08-11",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-alpha",
+        "version": "1.0.0",
+        "scope": {"include": ["recall alpha synthetic tokens"], "exclude": ["infer absent tokens"]},
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:composition-alpha-v1"}],
+        "layers": {
+          "knowledge": ["alpha-entry-v1", "shared-entry-v1"],
+          "experience": [],
+          "skills": ["exact-alpha-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {"target": ["TGT-001", "TGT-002"], "held_out_regression": ["REG-001", "REG-002", "REG-003"]},
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "alpha-entry-v1", "value": "amber-13"},
+        {"id": "shared-entry-v1", "value": "cobalt-23"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-beta",
+        "version": "1.0.0",
+        "scope": {"include": ["recall beta synthetic tokens"], "exclude": ["infer absent tokens"]},
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:composition-beta-v1"}],
+        "layers": {
+          "knowledge": ["beta-entry-v1", "delta-entry-v1"],
+          "experience": [],
+          "skills": ["exact-beta-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {"target": ["TGT-003", "TGT-004"], "held_out_regression": ["REG-001", "REG-002", "REG-003"]},
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "beta-entry-v1", "value": "birch-37"},
+        {"id": "delta-entry-v1", "value": "dune-41"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-gamma",
+        "version": "1.0.0",
+        "scope": {"include": ["recall gamma synthetic tokens"], "exclude": ["infer absent tokens"]},
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:composition-gamma-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "gamma-entry-v1"],
+          "experience": [],
+          "skills": ["exact-gamma-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {"target": ["CON-001", "CON-002"], "held_out_regression": ["REG-001", "REG-002", "REG-003"]},
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "coral-59"},
+        {"id": "gamma-entry-v1", "value": "gold-67"}
+      ]
+    }
+  ],
+  "compatible_package_ids": ["synthetic-alpha", "synthetic-beta"],
+  "held_out_target": [
+    {"id": "TGT-001", "request": {"operation": "recall", "key": "alpha-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "amber-13"},
+    {"id": "TGT-002", "request": {"operation": "recall", "key": "shared-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "cobalt-23"},
+    {"id": "TGT-003", "request": {"operation": "recall", "key": "beta-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "birch-37"},
+    {"id": "TGT-004", "request": {"operation": "recall", "key": "delta-entry-v1"}, "expected_unloaded": "unknown", "expected_loaded": "dune-41"}
+  ],
+  "held_out_regression": [
+    {"id": "REG-001", "request": {"operation": "echo", "value": "stable-alpha"}, "expected": "stable-alpha"},
+    {"id": "REG-002", "request": {"operation": "recall", "key": "missing-entry-v1"}, "expected": "unknown"},
+    {"id": "REG-003", "request": {"operation": "echo", "value": "stable-beta"}, "expected": "stable-beta"}
+  ],
+  "conflict_orders": [
+    {"package_ids": ["synthetic-alpha", "synthetic-gamma"], "expected_baseline": "coral-59"},
+    {"package_ids": ["synthetic-gamma", "synthetic-alpha"], "expected_baseline": "cobalt-23"}
+  ],
+  "conflict_probe": {"request": {"operation": "recall", "key": "shared-entry-v1"}, "expected_candidate": "unknown"}
+}
