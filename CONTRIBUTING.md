@@ -11,6 +11,7 @@ python3 scripts/validate_experiment_index.py .
 python3 scripts/validate_expert_manifest.py templates/expert-package.json --reference-date 2026-08-08
 python3 scripts/evaluate_expert_lookup.py
 python3 scripts/evaluate_expert_composition.py
+python3 scripts/evaluate_qualified_expert_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -47,6 +48,10 @@ passing them is not evidence of semantic retrieval or general language capabilit
 The EXP-013 evaluator composes quarantined synthetic lookup experts transactionally. It checks
 order-invariant compatible composition, fail-closed exact knowledge-ID conflicts, and unload
 rollback; passing it is not evidence of semantic conflict detection or concurrent atomicity.
+
+The EXP-014 evaluator tests explicit package-qualified lookup for experts that reuse a local
+knowledge ID. It compares this with EXP-013's fail-closed collision policy and checks routing,
+order invariance, and unload rollback; passing it is not evidence of learned or semantic routing.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
