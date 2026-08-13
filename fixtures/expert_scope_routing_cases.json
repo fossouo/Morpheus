@@ -1,0 +1,96 @@
+{
+  "schema": "expert-scope-routing-cases-v1",
+  "reference_date": "2026-08-13",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-north",
+        "version": "1.0.0",
+        "scope": {"include": ["synthetic-scope-north"], "exclude": ["synthetic-scope-south", "infer absent scopes"]},
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:scope-north-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "north-entry-v1"],
+          "experience": [],
+          "skills": ["exact-north-scope-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {"target": ["TGT-001", "TGT-002"], "held_out_regression": ["REG-001", "REG-002", "REG-003"]},
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "north-amber-17"},
+        {"id": "north-entry-v1", "value": "north-birch-29"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-south",
+        "version": "1.0.0",
+        "scope": {"include": ["synthetic-scope-south"], "exclude": ["synthetic-scope-north", "infer absent scopes"]},
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:scope-south-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "south-entry-v1"],
+          "experience": [],
+          "skills": ["exact-south-scope-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {"target": ["TGT-003", "TGT-004"], "held_out_regression": ["REG-001", "REG-002", "REG-003"]},
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "south-coral-43"},
+        {"id": "south-entry-v1", "value": "south-dune-61"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-overlap",
+        "version": "1.0.0",
+        "scope": {"include": ["synthetic-scope-north"], "exclude": ["infer absent scopes"]},
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:scope-overlap-v1"}],
+        "layers": {
+          "knowledge": ["overlap-entry-v1"],
+          "experience": [],
+          "skills": ["exact-overlap-scope-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {"target": ["CF-001"], "held_out_regression": ["REG-001", "REG-002", "REG-003"]},
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [{"id": "overlap-entry-v1", "value": "overlap-fir-83"}]
+    }
+  ],
+  "compatible_package_ids": ["synthetic-north", "synthetic-south"],
+  "compatible_orders": [
+    ["synthetic-north", "synthetic-south"],
+    ["synthetic-south", "synthetic-north"]
+  ],
+  "conflict_orders": [
+    ["synthetic-north", "synthetic-overlap"],
+    ["synthetic-overlap", "synthetic-north"]
+  ],
+  "held_out_target": [
+    {"id": "TGT-001", "request": {"operation": "scope_recall", "scope": "synthetic-scope-north", "local_id": "shared-entry-v1"}, "expected_baseline": "route-error:package-id-required", "expected_candidate": "north-amber-17", "expected_unloaded": "route-error:scope-not-found"},
+    {"id": "TGT-002", "request": {"operation": "scope_recall", "scope": "synthetic-scope-north", "local_id": "north-entry-v1"}, "expected_baseline": "route-error:package-id-required", "expected_candidate": "north-birch-29", "expected_unloaded": "route-error:scope-not-found"},
+    {"id": "TGT-003", "request": {"operation": "scope_recall", "scope": "synthetic-scope-south", "local_id": "shared-entry-v1"}, "expected_baseline": "route-error:package-id-required", "expected_candidate": "south-coral-43", "expected_unloaded": "route-error:scope-not-found"},
+    {"id": "TGT-004", "request": {"operation": "scope_recall", "scope": "synthetic-scope-south", "local_id": "south-entry-v1"}, "expected_baseline": "route-error:package-id-required", "expected_candidate": "south-dune-61", "expected_unloaded": "route-error:scope-not-found"}
+  ],
+  "held_out_regression": [
+    {"id": "REG-001", "request": {"operation": "echo", "value": "kernel-stable"}, "expected": "kernel-stable"},
+    {"id": "REG-002", "request": {"operation": "echo", "value": "layers-remain-separated"}, "expected": "layers-remain-separated"},
+    {"id": "REG-003", "request": {"operation": "echo", "value": "rollback-required"}, "expected": "rollback-required"}
+  ],
+  "absent_scope_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic-scope-absent", "local_id": "shared-entry-v1"},
+    "expected": "route-error:scope-not-found"
+  }
+}

@@ -12,6 +12,7 @@ python3 scripts/validate_expert_manifest.py templates/expert-package.json --refe
 python3 scripts/evaluate_expert_lookup.py
 python3 scripts/evaluate_expert_composition.py
 python3 scripts/evaluate_qualified_expert_routing.py
+python3 scripts/evaluate_scope_expert_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -52,6 +53,11 @@ rollback; passing it is not evidence of semantic conflict detection or concurren
 The EXP-014 evaluator tests explicit package-qualified lookup for experts that reuse a local
 knowledge ID. It compares this with EXP-013's fail-closed collision policy and checks routing,
 order invariance, and unload rollback; passing it is not evidence of learned or semantic routing.
+
+The EXP-015 evaluator routes exact caller-supplied scope labels to composed quarantined experts.
+It rejects overlapping and absent scopes, checks order invariance and unload rollback, and compares
+with EXP-014's explicit package qualification. Passing it is not evidence of semantic intent
+classification, expert discovery, or natural-language routing.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
