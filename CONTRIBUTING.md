@@ -13,6 +13,7 @@ python3 scripts/evaluate_expert_lookup.py
 python3 scripts/evaluate_expert_composition.py
 python3 scripts/evaluate_qualified_expert_routing.py
 python3 scripts/evaluate_scope_expert_routing.py
+python3 scripts/evaluate_hierarchical_scope_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -58,6 +59,11 @@ The EXP-015 evaluator routes exact caller-supplied scope labels to composed quar
 It rejects overlapping and absent scopes, checks order invariance and unload rollback, and compares
 with EXP-014's explicit package qualification. Passing it is not evidence of semantic intent
 classification, expert discovery, or natural-language routing.
+
+The EXP-016 evaluator treats slash-separated caller scopes as a segment hierarchy and selects the
+deepest declared prefix. It compares descendant routing with EXP-015's exact-only policy, rejects
+duplicate equal-specificity prefixes, near-prefixes, and absent scopes, and checks order invariance
+and unload rollback. Passing it is not evidence of semantic, learned, or wildcard routing.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

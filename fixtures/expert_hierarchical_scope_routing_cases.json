@@ -1,0 +1,218 @@
+{
+  "schema": "expert-hierarchical-scope-routing-cases-v1",
+  "reference_date": "2026-08-14",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-library",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library"],
+          "exclude": ["synthetic/library-science", "infer absent scopes"]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:hierarchical-library-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "library-entry-v1"],
+          "experience": [],
+          "skills": ["hierarchical-library-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-001", "TGT-002"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "library-amber-17"},
+        {"id": "library-entry-v1", "value": "library-birch-29"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-science",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/science"],
+          "exclude": ["synthetic/library-science", "infer absent scopes"]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:hierarchical-science-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "science-entry-v1"],
+          "experience": [],
+          "skills": ["hierarchical-science-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-003", "TGT-004", "TGT-005"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "science-coral-43"},
+        {"id": "science-entry-v1", "value": "science-dune-61"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-specificity-tie",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/science"],
+          "exclude": ["infer absent scopes"]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:hierarchical-specificity-tie-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["tie-entry-v1"],
+          "experience": [],
+          "skills": ["hierarchical-tie-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TIE-001"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "tie-entry-v1", "value": "tie-fir-83"}
+      ]
+    }
+  ],
+  "compatible_package_ids": ["synthetic-library", "synthetic-science"],
+  "compatible_orders": [
+    ["synthetic-library", "synthetic-science"],
+    ["synthetic-science", "synthetic-library"]
+  ],
+  "tie_orders": [
+    ["synthetic-science", "synthetic-specificity-tie"],
+    ["synthetic-specificity-tie", "synthetic-science"]
+  ],
+  "held_out_target": [
+    {
+      "id": "TGT-001",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/library",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "library-amber-17",
+      "expected_candidate": "library-amber-17",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-002",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/library/history",
+        "local_id": "library-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-not-found",
+      "expected_candidate": "library-birch-29",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-003",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/library/science",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "science-coral-43",
+      "expected_candidate": "science-coral-43",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-004",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/library/science/physics",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-not-found",
+      "expected_candidate": "science-coral-43",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-005",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/library/science/chemistry/organic",
+        "local_id": "science-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-not-found",
+      "expected_candidate": "science-dune-61",
+      "expected_unloaded": "route-error:scope-not-found"
+    }
+  ],
+  "held_out_regression": [
+    {
+      "id": "REG-001",
+      "request": {"operation": "echo", "value": "kernel-stable"},
+      "expected": "kernel-stable"
+    },
+    {
+      "id": "REG-002",
+      "request": {"operation": "echo", "value": "segments-are-boundaries"},
+      "expected": "segments-are-boundaries"
+    },
+    {
+      "id": "REG-003",
+      "request": {"operation": "echo", "value": "rollback-required"},
+      "expected": "rollback-required"
+    }
+  ],
+  "near_prefix_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/library-science",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "absent_scope_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/archive",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  }
+}

@@ -20,6 +20,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-013 | Transactional expert composition | complete | pass |
 | EXP-014 | Package-qualified expert routing | complete | pass |
 | EXP-015 | Exact scope expert routing | complete | pass |
+| EXP-016 | Hierarchical scope expert routing | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
