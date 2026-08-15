@@ -14,6 +14,7 @@ python3 scripts/evaluate_expert_composition.py
 python3 scripts/evaluate_qualified_expert_routing.py
 python3 scripts/evaluate_scope_expert_routing.py
 python3 scripts/evaluate_hierarchical_scope_routing.py
+python3 scripts/evaluate_wildcard_scope_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -64,6 +65,11 @@ The EXP-016 evaluator treats slash-separated caller scopes as a segment hierarch
 deepest declared prefix. It compares descendant routing with EXP-015's exact-only policy, rejects
 duplicate equal-specificity prefixes, near-prefixes, and absent scopes, and checks order invariance
 and unload rollback. Passing it is not evidence of semantic, learned, or wildcard routing.
+
+The EXP-017 evaluator adds a minimal whole-segment `*` pattern and ranks matches by declared depth
+then literal-segment count. It compares wildcard routing with EXP-016's literal-prefix policy,
+rejects request-time equal-specificity ties, and checks boundaries, order invariance, regressions,
+and unload rollback. Passing it is not evidence of semantic, learned, or natural-language routing.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
