@@ -1,0 +1,224 @@
+{
+  "schema": "expert-exclusion-scope-routing-cases-v1",
+  "reference_date": "2026-08-16",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-library",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library"],
+          "exclude": ["synthetic/library/private", "synthetic/library/*/blocked"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:exclusion-library-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "library-entry-v1"],
+          "experience": [],
+          "skills": ["exclusion-library-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-001", "TGT-002", "TGT-003", "TGT-004", "TGT-005"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "library-amber-17"},
+        {"id": "library-entry-v1", "value": "library-birch-29"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-wildcard-science",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/*/science"],
+          "exclude": ["synthetic/secret/science", "synthetic/*/science/restricted"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:exclusion-science-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "science-entry-v1"],
+          "experience": [],
+          "skills": ["exclusion-science-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-006", "TGT-007", "TGT-008"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "science-coral-43"},
+        {"id": "science-entry-v1", "value": "science-dune-61"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-literal-science",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/science"],
+          "exclude": ["synthetic/library/science/private"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:exclusion-literal-science-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["exclusion-literal-science-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["SPEC-001"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [{"id": "shared-entry-v1", "value": "literal-gold-71"}]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-wildcard-library",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/*"],
+          "exclude": ["synthetic/library/science/private"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:exclusion-wildcard-library-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["exclusion-wildcard-library-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TIE-001"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [{"id": "shared-entry-v1", "value": "tie-indigo-83"}]
+    }
+  ],
+  "compatible_package_ids": ["synthetic-library", "synthetic-wildcard-science"],
+  "compatible_orders": [
+    ["synthetic-library", "synthetic-wildcard-science"],
+    ["synthetic-wildcard-science", "synthetic-library"]
+  ],
+  "specificity_orders": [
+    ["synthetic-wildcard-science", "synthetic-literal-science"],
+    ["synthetic-literal-science", "synthetic-wildcard-science"]
+  ],
+  "tie_orders": [
+    ["synthetic-wildcard-science", "synthetic-wildcard-library"],
+    ["synthetic-wildcard-library", "synthetic-wildcard-science"]
+  ],
+  "held_out_target": [
+    {
+      "id": "TGT-001",
+      "policy": "allow",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library", "local_id": "shared-entry-v1"},
+      "expected_baseline": "library-amber-17",
+      "expected_candidate": "library-amber-17",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-002",
+      "policy": "allow",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/public", "local_id": "library-entry-v1"},
+      "expected_baseline": "library-birch-29",
+      "expected_candidate": "library-birch-29",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-003",
+      "policy": "exact-exclude",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/private", "local_id": "shared-entry-v1"},
+      "expected_baseline": "library-amber-17",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-004",
+      "policy": "exact-exclude",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/private/notes", "local_id": "library-entry-v1"},
+      "expected_baseline": "library-birch-29",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-005",
+      "policy": "wildcard-exclude",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/archive/blocked", "local_id": "shared-entry-v1"},
+      "expected_baseline": "library-amber-17",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-006",
+      "policy": "exact-exclude",
+      "request": {"operation": "scope_recall", "scope": "synthetic/secret/science", "local_id": "shared-entry-v1"},
+      "expected_baseline": "science-coral-43",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-007",
+      "policy": "wildcard-exclude",
+      "request": {"operation": "scope_recall", "scope": "synthetic/archive/science/restricted/chemistry", "local_id": "science-entry-v1"},
+      "expected_baseline": "science-dune-61",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-008",
+      "policy": "allow",
+      "request": {"operation": "scope_recall", "scope": "synthetic/archive/science", "local_id": "science-entry-v1"},
+      "expected_baseline": "science-dune-61",
+      "expected_candidate": "science-dune-61",
+      "expected_unloaded": "route-error:scope-not-found"
+    }
+  ],
+  "held_out_regression": [
+    {"id": "REG-001", "request": {"operation": "echo", "value": "kernel-stable"}, "expected": "kernel-stable"},
+    {"id": "REG-002", "request": {"operation": "echo", "value": "exclusions-precede-lookup"}, "expected": "exclusions-precede-lookup"},
+    {"id": "REG-003", "request": {"operation": "echo", "value": "rollback-required"}, "expected": "rollback-required"}
+  ],
+  "specificity_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library/science", "local_id": "shared-entry-v1"},
+    "expected": "literal-gold-71"
+  },
+  "tie_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library/science", "local_id": "shared-entry-v1"},
+    "expected": "route-error:ambiguous-specificity"
+  },
+  "tie_control_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/archive/science", "local_id": "shared-entry-v1"},
+    "expected": "science-coral-43"
+  },
+  "tie_exclusion_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library/science/private", "local_id": "shared-entry-v1"},
+    "expected": "route-error:scope-excluded"
+  },
+  "boundary_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library-private", "local_id": "shared-entry-v1"},
+    "expected": "route-error:scope-not-found"
+  },
+  "absent_scope_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/archive", "local_id": "shared-entry-v1"},
+    "expected": "route-error:scope-not-found"
+  }
+}

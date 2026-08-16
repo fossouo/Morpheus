@@ -15,6 +15,7 @@ python3 scripts/evaluate_qualified_expert_routing.py
 python3 scripts/evaluate_scope_expert_routing.py
 python3 scripts/evaluate_hierarchical_scope_routing.py
 python3 scripts/evaluate_wildcard_scope_routing.py
+python3 scripts/evaluate_exclusion_scope_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -70,6 +71,11 @@ The EXP-017 evaluator adds a minimal whole-segment `*` pattern and ranks matches
 then literal-segment count. It compares wildcard routing with EXP-016's literal-prefix policy,
 rejects request-time equal-specificity ties, and checks boundaries, order invariance, regressions,
 and unload rollback. Passing it is not evidence of semantic, learned, or natural-language routing.
+
+The EXP-018 evaluator applies exact and whole-segment-wildcard exclusions before include ranking
+or expert lookup. It compares this with EXP-017's exclusion-blind policy and checks specificity,
+ties, boundaries, order invariance, regressions, and unload rollback. Passing it is not evidence
+of authorization-system correctness, semantic policy interpretation, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
