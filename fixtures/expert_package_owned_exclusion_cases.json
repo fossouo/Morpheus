@@ -1,0 +1,204 @@
+{
+  "schema": "expert-package-owned-exclusion-cases-v1",
+  "reference_date": "2026-08-17",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-general-library",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library"],
+          "exclude": ["synthetic/library/private", "synthetic/library/*/blocked"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:owned-exclusion-general-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "general-entry-v1"],
+          "experience": [],
+          "skills": ["owned-exclusion-general-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-001", "TGT-002", "TGT-003"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "general-amber-19"},
+        {"id": "general-entry-v1", "value": "general-birch-31"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-delegated-library",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/private", "synthetic/library/*/blocked"],
+          "exclude": ["synthetic/library/private/owner-only", "synthetic/library/*/blocked/sealed"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:owned-exclusion-delegated-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1", "delegated-entry-v1"],
+          "experience": [],
+          "skills": ["owned-exclusion-delegated-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-004", "TGT-005", "TGT-006"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "delegated-coral-47"},
+        {"id": "delegated-entry-v1", "value": "delegated-dune-67"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-literal-probe",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/science", "synthetic/*/history"],
+          "exclude": ["synthetic/literal/never"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:owned-exclusion-literal-probe-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["owned-exclusion-literal-probe-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["PROBE-001"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [{"id": "shared-entry-v1", "value": "literal-gold-73"}]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-wildcard-probe",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/library/*", "synthetic/archive/*"],
+          "exclude": ["synthetic/wildcard/never"]
+        },
+        "provenance": [{"source_id": "SRC-001", "kind": "synthetic", "reference": "fixture:owned-exclusion-wildcard-probe-v1"}],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["owned-exclusion-wildcard-probe-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["PROBE-002"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {"state": "quarantine", "rollback": {"mode": "unload"}}
+      },
+      "knowledge_records": [{"id": "shared-entry-v1", "value": "wildcard-indigo-89"}]
+    }
+  ],
+  "compatible_package_ids": ["synthetic-general-library", "synthetic-delegated-library"],
+  "compatible_orders": [
+    ["synthetic-general-library", "synthetic-delegated-library"],
+    ["synthetic-delegated-library", "synthetic-general-library"]
+  ],
+  "specificity_orders": [
+    ["synthetic-literal-probe", "synthetic-wildcard-probe"],
+    ["synthetic-wildcard-probe", "synthetic-literal-probe"]
+  ],
+  "tie_orders": [
+    ["synthetic-literal-probe", "synthetic-wildcard-probe"],
+    ["synthetic-wildcard-probe", "synthetic-literal-probe"]
+  ],
+  "held_out_target": [
+    {
+      "id": "TGT-001",
+      "policy": "allow",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library", "local_id": "shared-entry-v1"},
+      "expected_baseline": "general-amber-19",
+      "expected_candidate": "general-amber-19",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-002",
+      "policy": "allow",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/public", "local_id": "general-entry-v1"},
+      "expected_baseline": "general-birch-31",
+      "expected_candidate": "general-birch-31",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-003",
+      "policy": "cross-package-exact",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/private", "local_id": "shared-entry-v1"},
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "delegated-coral-47",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-004",
+      "policy": "cross-package-wildcard",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/archive/blocked", "local_id": "delegated-entry-v1"},
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "delegated-dune-67",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-005",
+      "policy": "all-excluded-exact",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/private/owner-only", "local_id": "shared-entry-v1"},
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-006",
+      "policy": "all-excluded-wildcard",
+      "request": {"operation": "scope_recall", "scope": "synthetic/library/archive/blocked/sealed", "local_id": "delegated-entry-v1"},
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    }
+  ],
+  "held_out_regression": [
+    {"id": "REG-001", "request": {"operation": "echo", "value": "kernel-stable"}, "expected": "kernel-stable"},
+    {"id": "REG-002", "request": {"operation": "echo", "value": "exclusions-remain-owned"}, "expected": "exclusions-remain-owned"},
+    {"id": "REG-003", "request": {"operation": "echo", "value": "rollback-required"}, "expected": "rollback-required"}
+  ],
+  "specificity_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library/science", "local_id": "shared-entry-v1"},
+    "expected": "literal-gold-73"
+  },
+  "tie_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/archive/history", "local_id": "shared-entry-v1"},
+    "expected": "route-error:ambiguous-specificity"
+  },
+  "tie_control_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library/science", "local_id": "shared-entry-v1"},
+    "expected": "literal-gold-73"
+  },
+  "boundary_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/library-private", "local_id": "shared-entry-v1"},
+    "expected": "route-error:scope-not-found"
+  },
+  "absent_scope_probe": {
+    "request": {"operation": "scope_recall", "scope": "synthetic/archive", "local_id": "shared-entry-v1"},
+    "expected": "route-error:scope-not-found"
+  }
+}

@@ -16,6 +16,7 @@ python3 scripts/evaluate_scope_expert_routing.py
 python3 scripts/evaluate_hierarchical_scope_routing.py
 python3 scripts/evaluate_wildcard_scope_routing.py
 python3 scripts/evaluate_exclusion_scope_routing.py
+python3 scripts/evaluate_package_owned_exclusion_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -76,6 +77,12 @@ The EXP-018 evaluator applies exact and whole-segment-wildcard exclusions before
 or expert lookup. It compares this with EXP-017's exclusion-blind policy and checks specificity,
 ties, boundaries, order invariance, regressions, and unload rollback. Passing it is not evidence
 of authorization-system correctness, semantic policy interpretation, or runtime safety.
+
+The EXP-019 evaluator filters each matching package by only the exclusions that package owns,
+then applies the existing include ranking. It compares this with EXP-018's global deny rule and
+checks cross-package interference, all-excluded fail-closed behavior, specificity, ties,
+regressions, order invariance, and unload rollback. Passing it is not evidence of authorization-
+system correctness, semantic policy interpretation, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
