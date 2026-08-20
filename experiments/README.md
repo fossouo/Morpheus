@@ -24,6 +24,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-017 | Wildcard scope expert routing | complete | pass |
 | EXP-018 | Exclusion-precedence expert routing | complete | pass |
 | EXP-019 | Package-owned expert exclusion routing | complete | pass |
+| EXP-020 | Specificity-floor expert exclusion routing | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

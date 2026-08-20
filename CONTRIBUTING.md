@@ -17,6 +17,7 @@ python3 scripts/evaluate_hierarchical_scope_routing.py
 python3 scripts/evaluate_wildcard_scope_routing.py
 python3 scripts/evaluate_exclusion_scope_routing.py
 python3 scripts/evaluate_package_owned_exclusion_routing.py
+python3 scripts/evaluate_specificity_floor_exclusion_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -83,6 +84,12 @@ then applies the existing include ranking. It compares this with EXP-018's globa
 checks cross-package interference, all-excluded fail-closed behavior, specificity, ties,
 regressions, order invariance, and unload rollback. Passing it is not evidence of authorization-
 system correctness, semantic policy interpretation, or runtime safety.
+
+The EXP-020 evaluator fixes the best matching include score before package-owned exclusion
+filtering. It compares this specificity floor with EXP-019's broader eligible fallback and checks
+exact and wildcard fallback denials, cross-package delegation, all-excluded behavior, specificity,
+ties, regressions, order invariance, and unload rollback. Passing it is not evidence of
+authorization-system correctness, semantic policy interpretation, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
