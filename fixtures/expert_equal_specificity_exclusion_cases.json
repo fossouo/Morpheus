@@ -1,0 +1,288 @@
+{
+  "schema": "expert-equal-specificity-exclusion-cases-v1",
+  "reference_date": "2026-08-21",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-equal-alpha",
+        "version": "1.0.0",
+        "scope": {
+          "include": [
+            "synthetic/*/item",
+            "synthetic/*/document",
+            "synthetic/*/closed",
+            "synthetic/floor/exact"
+          ],
+          "exclude": [
+            "synthetic/blue/item",
+            "synthetic/black/item",
+            "synthetic/white/closed/sealed",
+            "synthetic/floor/exact/restricted"
+          ]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:equal-specificity-alpha-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["equal-specificity-alpha-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-001", "TGT-002", "TGT-003"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "alpha-amber-11"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-equal-beta",
+        "version": "1.0.0",
+        "scope": {
+          "include": [
+            "synthetic/blue/*",
+            "synthetic/red/*",
+            "synthetic/green/*",
+            "synthetic/cyan/*",
+            "synthetic/black/*",
+            "synthetic/white/*",
+            "synthetic/floor/*"
+          ],
+          "exclude": [
+            "synthetic/red/*",
+            "synthetic/black/item",
+            "synthetic/white/*",
+            "synthetic/floor/*/sealed"
+          ]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:equal-specificity-beta-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["equal-specificity-beta-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-004", "TGT-005", "TGT-006"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "beta-cobalt-37"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-equal-broad",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/floor"],
+          "exclude": ["synthetic/never/*"]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:equal-specificity-broad-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["equal-specificity-broad-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-007", "TGT-008"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "broad-dune-73"}
+      ]
+    }
+  ],
+  "compatible_package_ids": [
+    "synthetic-equal-alpha",
+    "synthetic-equal-beta",
+    "synthetic-equal-broad"
+  ],
+  "compatible_orders": [
+    [
+      "synthetic-equal-alpha",
+      "synthetic-equal-beta",
+      "synthetic-equal-broad"
+    ],
+    [
+      "synthetic-equal-broad",
+      "synthetic-equal-beta",
+      "synthetic-equal-alpha"
+    ]
+  ],
+  "held_out_target": [
+    {
+      "id": "TGT-001",
+      "policy": "isolate-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/blue/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "beta-cobalt-37",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-002",
+      "policy": "isolate-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/red/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "alpha-amber-11",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-003",
+      "policy": "two-eligible-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/green/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:ambiguous-specificity",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-004",
+      "policy": "two-eligible-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/cyan/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:ambiguous-specificity",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-005",
+      "policy": "all-excluded-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/black/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-006",
+      "policy": "all-excluded-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/white/closed/sealed",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-007",
+      "policy": "floor-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/floor/exact/restricted",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-008",
+      "policy": "floor-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/floor/red/sealed",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    }
+  ],
+  "held_out_regression": [
+    {
+      "id": "REG-001",
+      "request": {"operation": "echo", "value": "kernel-stable"},
+      "expected": "kernel-stable"
+    },
+    {
+      "id": "REG-002",
+      "request": {"operation": "echo", "value": "equal-specificity-locked"},
+      "expected": "equal-specificity-locked"
+    },
+    {
+      "id": "REG-003",
+      "request": {"operation": "echo", "value": "rollback-required"},
+      "expected": "rollback-required"
+    }
+  ],
+  "boundary_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "syntheticx/blue/item",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "absent_scope_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/unknown/path",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  }
+}

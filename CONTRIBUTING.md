@@ -18,6 +18,7 @@ python3 scripts/evaluate_wildcard_scope_routing.py
 python3 scripts/evaluate_exclusion_scope_routing.py
 python3 scripts/evaluate_package_owned_exclusion_routing.py
 python3 scripts/evaluate_specificity_floor_exclusion_routing.py
+python3 scripts/evaluate_equal_specificity_exclusion_isolation.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -90,6 +91,12 @@ filtering. It compares this specificity floor with EXP-019's broader eligible fa
 exact and wildcard fallback denials, cross-package delegation, all-excluded behavior, specificity,
 ties, regressions, order invariance, and unload rollback. Passing it is not evidence of
 authorization-system correctness, semantic policy interpretation, or runtime safety.
+
+The EXP-021 evaluator separates equal-specificity ambiguity from package-owned exclusion. It
+tests selection only when exclusion leaves one top-score package eligible, while preserving
+ambiguity between two eligible packages, all-excluded denial, and the EXP-020 specificity floor.
+Passing it is not evidence of authorization-system correctness, semantic policy interpretation,
+or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
