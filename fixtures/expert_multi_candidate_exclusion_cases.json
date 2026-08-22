@@ -1,0 +1,347 @@
+{
+  "schema": "expert-multi-candidate-exclusion-cases-v1",
+  "reference_date": "2026-08-22",
+  "packages": [
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-cardinality-alpha",
+        "version": "1.0.0",
+        "scope": {
+          "include": [
+            "synthetic/*/item",
+            "synthetic/*/document",
+            "synthetic/*/record",
+            "synthetic/*/note",
+            "synthetic/*/closed",
+            "synthetic/*/sealed",
+            "synthetic/floor/exact"
+          ],
+          "exclude": [
+            "synthetic/blue/item",
+            "synthetic/black/closed",
+            "synthetic/*/sealed",
+            "synthetic/floor/exact/restricted"
+          ]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:cardinality-alpha-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["cardinality-alpha-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-001", "TGT-002"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "alpha-amber-11"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-cardinality-beta",
+        "version": "1.0.0",
+        "scope": {
+          "include": [
+            "synthetic/blue/*",
+            "synthetic/red/*",
+            "synthetic/green/*",
+            "synthetic/cyan/*",
+            "synthetic/black/*",
+            "synthetic/white/*",
+            "synthetic/floor/*"
+          ],
+          "exclude": [
+            "synthetic/blue/item",
+            "synthetic/red/*",
+            "synthetic/cyan/*",
+            "synthetic/black/closed",
+            "synthetic/white/*",
+            "synthetic/floor/*/sealed"
+          ]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:cardinality-beta-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["cardinality-beta-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-003", "TGT-004"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "beta-cobalt-37"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-cardinality-gamma",
+        "version": "1.0.0",
+        "scope": {
+          "include": [
+            "*/blue/item",
+            "*/red/document",
+            "*/green/record",
+            "*/cyan/note",
+            "*/black/closed",
+            "*/white/sealed"
+          ],
+          "exclude": [
+            "*/red/document",
+            "synthetic/green/record",
+            "synthetic/black/closed",
+            "*/white/sealed"
+          ]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:cardinality-gamma-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["cardinality-gamma-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-005", "TGT-006"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "gamma-fern-59"}
+      ]
+    },
+    {
+      "manifest": {
+        "schema": "expert-package-v1",
+        "package_id": "synthetic-cardinality-broad",
+        "version": "1.0.0",
+        "scope": {
+          "include": ["synthetic/floor"],
+          "exclude": ["synthetic/never/*"]
+        },
+        "provenance": [
+          {
+            "source_id": "SRC-001",
+            "kind": "synthetic",
+            "reference": "fixture:cardinality-broad-v1"
+          }
+        ],
+        "layers": {
+          "knowledge": ["shared-entry-v1"],
+          "experience": [],
+          "skills": ["cardinality-broad-recall-v1"],
+          "tools": [],
+          "adapters": []
+        },
+        "tests": {
+          "target": ["TGT-007", "TGT-008"],
+          "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+        },
+        "expires_on": "2026-09-01",
+        "lifecycle": {
+          "state": "quarantine",
+          "rollback": {"mode": "unload"}
+        }
+      },
+      "knowledge_records": [
+        {"id": "shared-entry-v1", "value": "broad-dune-73"}
+      ]
+    }
+  ],
+  "compatible_package_ids": [
+    "synthetic-cardinality-alpha",
+    "synthetic-cardinality-beta",
+    "synthetic-cardinality-gamma",
+    "synthetic-cardinality-broad"
+  ],
+  "held_out_target": [
+    {
+      "id": "TGT-001",
+      "policy": "three-to-one-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/blue/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 3,
+      "expected_eligible_candidates": 1,
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "gamma-fern-59",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-002",
+      "policy": "three-to-one-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/red/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 3,
+      "expected_eligible_candidates": 1,
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "alpha-amber-11",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-003",
+      "policy": "three-to-two-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/green/record",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 3,
+      "expected_eligible_candidates": 2,
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:ambiguous-specificity",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-004",
+      "policy": "three-to-two-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/cyan/note",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 3,
+      "expected_eligible_candidates": 2,
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:ambiguous-specificity",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-005",
+      "policy": "three-to-zero-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/black/closed",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 3,
+      "expected_eligible_candidates": 0,
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-006",
+      "policy": "three-to-zero-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/white/sealed",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 3,
+      "expected_eligible_candidates": 0,
+      "expected_baseline": "route-error:ambiguous-specificity",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-007",
+      "policy": "floor-exact",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/floor/exact/restricted",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 1,
+      "expected_eligible_candidates": 0,
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-008",
+      "policy": "floor-wildcard",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/floor/red/sealed",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_top_candidates": 1,
+      "expected_eligible_candidates": 0,
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-excluded",
+      "expected_unloaded": "route-error:scope-not-found"
+    }
+  ],
+  "held_out_regression": [
+    {
+      "id": "REG-001",
+      "request": {"operation": "echo", "value": "kernel-stable"},
+      "expected": "kernel-stable"
+    },
+    {
+      "id": "REG-002",
+      "request": {"operation": "echo", "value": "cardinality-locked"},
+      "expected": "cardinality-locked"
+    },
+    {
+      "id": "REG-003",
+      "request": {"operation": "echo", "value": "rollback-required"},
+      "expected": "rollback-required"
+    }
+  ],
+  "boundary_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "syntheticx/blue/item",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "absent_scope_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/unknown/path",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  }
+}

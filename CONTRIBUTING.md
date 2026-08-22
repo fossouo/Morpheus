@@ -98,6 +98,13 @@ ambiguity between two eligible packages, all-excluded denial, and the EXP-020 sp
 Passing it is not evidence of authorization-system correctness, semantic policy interpretation,
 or runtime safety.
 
+The EXP-022 evaluator extends the locked candidate set to three equal-specificity packages. It
+checks exact and wildcard transitions from three candidates to one, two, or zero eligible
+packages across every package permutation. The locked run failed because a first-segment wildcard
+crossed the intended top-level scope boundary; running the EXP-022 evaluator directly reproduces
+that failure and is expected to exit non-zero. The result does not establish authorization-system
+correctness, semantic policy interpretation, scalable performance, or runtime safety.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.
