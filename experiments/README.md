@@ -27,6 +27,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-020 | Specificity-floor expert exclusion routing | complete | pass |
 | EXP-021 | Equal-specificity expert exclusion isolation | complete | pass |
 | EXP-022 | Multi-candidate expert exclusion cardinality | complete | fail |
+| EXP-023 | Literal-root scope boundary guard | complete | fail |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

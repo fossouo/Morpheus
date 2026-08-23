@@ -1,0 +1,103 @@
+{
+  "schema": "expert-literal-root-boundary-cases-v1",
+  "source_fixture": "expert_multi_candidate_exclusion_cases.json",
+  "source_sha256": "b79e3c034d0b118ca2983b16cfeaed46ce44f440924b4216e73ffb3e74694507",
+  "reference_date": "2026-08-23",
+  "literal_root_replacements": [
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "include",
+      "index": 0,
+      "before": "*/blue/item",
+      "after": "synthetic/blue/item"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "include",
+      "index": 1,
+      "before": "*/red/document",
+      "after": "synthetic/red/document"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "include",
+      "index": 2,
+      "before": "*/green/record",
+      "after": "synthetic/green/record"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "include",
+      "index": 3,
+      "before": "*/cyan/note",
+      "after": "synthetic/cyan/note"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "include",
+      "index": 4,
+      "before": "*/black/closed",
+      "after": "synthetic/black/closed"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "include",
+      "index": 5,
+      "before": "*/white/sealed",
+      "after": "synthetic/white/sealed"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "exclude",
+      "index": 0,
+      "before": "*/red/document",
+      "after": "synthetic/red/document"
+    },
+    {
+      "package_id": "synthetic-cardinality-gamma",
+      "scope_list": "exclude",
+      "index": 3,
+      "before": "*/white/sealed",
+      "after": "synthetic/white/sealed"
+    }
+  ],
+  "grammar_cases": [
+    {
+      "id": "GRAM-001",
+      "kind": "include",
+      "pattern": "*/blue/item",
+      "expected_valid": false
+    },
+    {
+      "id": "GRAM-002",
+      "kind": "exclude",
+      "pattern": "*/red/document",
+      "expected_valid": false
+    },
+    {
+      "id": "GRAM-003",
+      "kind": "include",
+      "pattern": "synthetic/*/item",
+      "expected_valid": true
+    },
+    {
+      "id": "GRAM-004",
+      "kind": "exclude",
+      "pattern": "synthetic/*/sealed",
+      "expected_valid": true
+    },
+    {
+      "id": "GRAM-005",
+      "kind": "include",
+      "pattern": "synthetic/blue/item",
+      "expected_valid": true
+    },
+    {
+      "id": "GRAM-006",
+      "kind": "exclude",
+      "pattern": "synthetic/black/closed",
+      "expected_valid": true
+    }
+  ],
+  "unsafe_boundary_expected": "gamma-fern-59"
+}

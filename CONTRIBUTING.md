@@ -105,6 +105,14 @@ crossed the intended top-level scope boundary; running the EXP-022 evaluator dir
 that failure and is expected to exit non-zero. The result does not establish authorization-system
 correctness, semantic policy interpretation, scalable performance, or runtime safety.
 
+The EXP-023 evaluator tests a pre-composition rule requiring literal first scope segments and
+replays EXP-022 after eight locked literal-root substitutions. The locked run failed because the
+substitutions also increased literal-count specificity, changing three held-out routing outputs;
+running the evaluator directly reproduces that failure and is expected to exit non-zero. The
+guard did reject unsafe packages transactionally and fix the boundary probe, but it is not
+promoted and does not establish authorization-system correctness, semantic policy interpretation,
+scalable performance, or runtime safety.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.
