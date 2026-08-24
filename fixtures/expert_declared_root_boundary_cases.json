@@ -1,0 +1,49 @@
+{
+  "schema": "expert-declared-root-boundary-cases-v1",
+  "source_fixture": "expert_multi_candidate_exclusion_cases.json",
+  "source_sha256": "b79e3c034d0b118ca2983b16cfeaed46ce44f440924b4216e73ffb3e74694507",
+  "reference_date": "2026-08-24",
+  "allowed_roots": ["synthetic"],
+  "cross_root_cases": [
+    {
+      "id": "ROOT-001",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "adjacent/blue/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "gamma-fern-59",
+      "expected_candidate": "route-error:scope-not-found"
+    },
+    {
+      "id": "ROOT-002",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "adjacent/red/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-not-found"
+    },
+    {
+      "id": "ROOT-003",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "neighbor/green/record",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "gamma-fern-59",
+      "expected_candidate": "route-error:scope-not-found"
+    },
+    {
+      "id": "ROOT-004",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "neighbor/white/sealed",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "route-error:scope-excluded",
+      "expected_candidate": "route-error:scope-not-found"
+    }
+  ]
+}

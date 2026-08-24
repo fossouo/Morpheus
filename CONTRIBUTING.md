@@ -19,6 +19,7 @@ python3 scripts/evaluate_exclusion_scope_routing.py
 python3 scripts/evaluate_package_owned_exclusion_routing.py
 python3 scripts/evaluate_specificity_floor_exclusion_routing.py
 python3 scripts/evaluate_equal_specificity_exclusion_isolation.py
+python3 scripts/evaluate_declared_root_boundary.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -112,6 +113,12 @@ running the evaluator directly reproduces that failure and is expected to exit n
 guard did reject unsafe packages transactionally and fix the boundary probe, but it is not
 promoted and does not establish authorization-system correctness, semantic policy interpretation,
 scalable performance, or runtime safety.
+
+The EXP-024 evaluator tests a separately declared literal root fence against the unchanged
+EXP-022 packages. The locked run rejected four cross-root requests in every package permutation
+while preserving the original targets, cardinalities, regressions, and unload rollback. Passing
+it is not evidence that an untrusted root declaration is correct, nor of authorization-system
+correctness, semantic policy interpretation, scalable performance, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
