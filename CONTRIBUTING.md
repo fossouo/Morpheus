@@ -20,6 +20,7 @@ python3 scripts/evaluate_package_owned_exclusion_routing.py
 python3 scripts/evaluate_specificity_floor_exclusion_routing.py
 python3 scripts/evaluate_equal_specificity_exclusion_isolation.py
 python3 scripts/evaluate_declared_root_boundary.py
+python3 scripts/evaluate_package_root_ownership.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -119,6 +120,12 @@ EXP-022 packages. The locked run rejected four cross-root requests in every pack
 while preserving the original targets, cardinalities, regressions, and unload rollback. Passing
 it is not evidence that an untrusted root declaration is correct, nor of authorization-system
 correctness, semantic policy interpretation, scalable performance, or runtime safety.
+
+The EXP-025 evaluator tests package-owned literal roots across two synthetic namespaces. It
+constrains a package's leading wildcard to its own root, preserves unrelated-root routing, and
+rejects inconsistent declarations before installing state. Passing it is not evidence that a
+package's declaration is trustworthy, nor of authorization-system correctness, semantic policy
+interpretation, scalable performance, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

@@ -29,6 +29,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-022 | Multi-candidate expert exclusion cardinality | complete | fail |
 | EXP-023 | Literal-root scope boundary guard | complete | fail |
 | EXP-024 | Declared-root routing fence | complete | pass |
+| EXP-025 | Package-owned root routing | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

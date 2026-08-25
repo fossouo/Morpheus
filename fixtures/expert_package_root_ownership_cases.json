@@ -1,0 +1,258 @@
+{
+  "schema": "expert-package-root-ownership-cases-v1",
+  "reference_date": "2026-08-25",
+  "packages": [
+    {
+      "root": "synthetic",
+      "package": {
+        "manifest": {
+          "schema": "expert-package-v1",
+          "package_id": "synthetic-root-alpha",
+          "version": "1.0.0",
+          "scope": {
+            "include": ["*/blue/item", "*/red/document"],
+            "exclude": ["*/red/document/restricted"]
+          },
+          "provenance": [
+            {
+              "source_id": "SRC-001",
+              "kind": "synthetic",
+              "reference": "fixture:package-root-alpha-v1"
+            }
+          ],
+          "layers": {
+            "knowledge": ["shared-entry-v1"],
+            "experience": [],
+            "skills": ["package-root-alpha-recall-v1"],
+            "tools": [],
+            "adapters": []
+          },
+          "tests": {
+            "target": ["TGT-001", "TGT-002", "TGT-003", "TGT-004"],
+            "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+          },
+          "expires_on": "2026-09-01",
+          "lifecycle": {
+            "state": "quarantine",
+            "rollback": {"mode": "unload"}
+          }
+        },
+        "knowledge_records": [
+          {"id": "shared-entry-v1", "value": "alpha-cedar-17"}
+        ]
+      }
+    },
+    {
+      "root": "auxiliary",
+      "package": {
+        "manifest": {
+          "schema": "expert-package-v1",
+          "package_id": "synthetic-root-beta",
+          "version": "1.0.0",
+          "scope": {
+            "include": ["*/green/item", "*/gold/document"],
+            "exclude": ["*/gold/document/restricted"]
+          },
+          "provenance": [
+            {
+              "source_id": "SRC-001",
+              "kind": "synthetic",
+              "reference": "fixture:package-root-beta-v1"
+            }
+          ],
+          "layers": {
+            "knowledge": ["shared-entry-v1"],
+            "experience": [],
+            "skills": ["package-root-beta-recall-v1"],
+            "tools": [],
+            "adapters": []
+          },
+          "tests": {
+            "target": ["TGT-005", "TGT-006", "TGT-007", "TGT-008"],
+            "held_out_regression": ["REG-001", "REG-002", "REG-003"]
+          },
+          "expires_on": "2026-09-01",
+          "lifecycle": {
+            "state": "quarantine",
+            "rollback": {"mode": "unload"}
+          }
+        },
+        "knowledge_records": [
+          {"id": "shared-entry-v1", "value": "beta-iris-43"}
+        ]
+      }
+    }
+  ],
+  "compatible_package_ids": ["synthetic-root-alpha", "synthetic-root-beta"],
+  "held_out_target": [
+    {
+      "id": "TGT-001",
+      "policy": "own-root-alpha-blue",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/blue/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "alpha-cedar-17",
+      "expected_candidate": "alpha-cedar-17",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-002",
+      "policy": "own-root-alpha-red",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/red/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "alpha-cedar-17",
+      "expected_candidate": "alpha-cedar-17",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-003",
+      "policy": "cross-root-alpha-blue",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "auxiliary/blue/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "alpha-cedar-17",
+      "expected_candidate": "route-error:scope-not-found",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-004",
+      "policy": "cross-root-alpha-red",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "auxiliary/red/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "alpha-cedar-17",
+      "expected_candidate": "route-error:scope-not-found",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-005",
+      "policy": "own-root-beta-green",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "auxiliary/green/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "beta-iris-43",
+      "expected_candidate": "beta-iris-43",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-006",
+      "policy": "own-root-beta-gold",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "auxiliary/gold/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "beta-iris-43",
+      "expected_candidate": "beta-iris-43",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-007",
+      "policy": "cross-root-beta-green",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/green/item",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "beta-iris-43",
+      "expected_candidate": "route-error:scope-not-found",
+      "expected_unloaded": "route-error:scope-not-found"
+    },
+    {
+      "id": "TGT-008",
+      "policy": "cross-root-beta-gold",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/gold/document",
+        "local_id": "shared-entry-v1"
+      },
+      "expected_baseline": "beta-iris-43",
+      "expected_candidate": "route-error:scope-not-found",
+      "expected_unloaded": "route-error:scope-not-found"
+    }
+  ],
+  "held_out_regression": [
+    {
+      "id": "REG-001",
+      "request": {"operation": "echo", "value": "kernel-stable"},
+      "expected": "kernel-stable"
+    },
+    {
+      "id": "REG-002",
+      "request": {"operation": "echo", "value": "two-roots-locked"},
+      "expected": "two-roots-locked"
+    },
+    {
+      "id": "REG-003",
+      "request": {"operation": "echo", "value": "rollback-required"},
+      "expected": "rollback-required"
+    }
+  ],
+  "cross_root_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "neighbor/blue/item",
+      "local_id": "shared-entry-v1"
+    },
+    "expected_baseline": "alpha-cedar-17",
+    "expected_candidate": "route-error:scope-not-found"
+  },
+  "absent_scope_probe": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/unknown/path",
+      "local_id": "shared-entry-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "invalid_declarations": [
+    {
+      "id": "INV-001",
+      "package_id": "synthetic-root-alpha",
+      "field": "root",
+      "index": null,
+      "value": "*",
+      "expected_error": "invalid-package-root:synthetic-root-alpha"
+    },
+    {
+      "id": "INV-002",
+      "package_id": "synthetic-root-alpha",
+      "field": "root",
+      "index": null,
+      "value": "synthetic/nested",
+      "expected_error": "invalid-package-root:synthetic-root-alpha"
+    },
+    {
+      "id": "INV-003",
+      "package_id": "synthetic-root-alpha",
+      "field": "include",
+      "index": 0,
+      "value": "auxiliary/blue/legacy",
+      "expected_error": "scope-root-mismatch:synthetic-root-alpha:include:auxiliary/blue/legacy"
+    },
+    {
+      "id": "INV-004",
+      "package_id": "synthetic-root-beta",
+      "field": "exclude",
+      "index": 0,
+      "value": "synthetic/gold/document/restricted",
+      "expected_error": "scope-root-mismatch:synthetic-root-beta:exclude:synthetic/gold/document/restricted"
+    }
+  ],
+  "clean_state_probe": {
+    "operation": "scope_recall",
+    "scope": "synthetic/blue/item",
+    "local_id": "shared-entry-v1"
+  }
+}
