@@ -1,0 +1,132 @@
+{
+  "schema": "expert-manifest-root-cases-v1",
+  "base_manifest": {
+    "schema": "expert-package-v2",
+    "package_id": "synthetic-rooted-expert",
+    "version": "1.0.0",
+    "root": "synthetic",
+    "scope": {
+      "include": ["*/blue/item", "synthetic/red/document"],
+      "exclude": ["*/blue/item/restricted", "synthetic/red/document/restricted"]
+    },
+    "provenance": [
+      {
+        "source_id": "SRC-001",
+        "kind": "synthetic",
+        "reference": "fixture:expert-manifest-root-cases-v1"
+      }
+    ],
+    "layers": {
+      "knowledge": ["synthetic-root-record-v1"],
+      "experience": [],
+      "skills": ["synthetic-root-recall-v1"],
+      "tools": [],
+      "adapters": []
+    },
+    "tests": {
+      "target": ["TGT-001"],
+      "held_out_regression": ["REG-001"]
+    },
+    "expires_on": "2026-09-01",
+    "lifecycle": {
+      "state": "quarantine",
+      "rollback": {"mode": "unload"}
+    }
+  },
+  "cases": [
+    {
+      "id": "valid_mixed_patterns",
+      "mutation": {"op": "none"},
+      "expected": "valid",
+      "expected_candidate_error": null
+    },
+    {
+      "id": "valid_literal_patterns",
+      "mutation": {
+        "op": "set",
+        "path": ["scope", "include"],
+        "value": ["synthetic/green/item", "synthetic/gold/document"]
+      },
+      "expected": "valid",
+      "expected_candidate_error": null
+    },
+    {
+      "id": "missing_root",
+      "mutation": {"op": "remove", "path": ["root"]},
+      "expected": "invalid",
+      "expected_candidate_error": "missing-key:root"
+    },
+    {
+      "id": "empty_root",
+      "mutation": {"op": "set", "path": ["root"], "value": ""},
+      "expected": "invalid",
+      "expected_candidate_error": "invalid-root"
+    },
+    {
+      "id": "wildcard_root",
+      "mutation": {"op": "set", "path": ["root"], "value": "*"},
+      "expected": "invalid",
+      "expected_candidate_error": "invalid-root"
+    },
+    {
+      "id": "partial_wildcard_root",
+      "mutation": {"op": "set", "path": ["root"], "value": "synt*"},
+      "expected": "invalid",
+      "expected_candidate_error": "invalid-root"
+    },
+    {
+      "id": "nested_root",
+      "mutation": {"op": "set", "path": ["root"], "value": "synthetic/nested"},
+      "expected": "invalid",
+      "expected_candidate_error": "invalid-root"
+    },
+    {
+      "id": "dot_root",
+      "mutation": {"op": "set", "path": ["root"], "value": "."},
+      "expected": "invalid",
+      "expected_candidate_error": "invalid-root"
+    },
+    {
+      "id": "include_literal_root_mismatch",
+      "mutation": {
+        "op": "set",
+        "path": ["scope", "include"],
+        "value": ["auxiliary/blue/item"]
+      },
+      "expected": "invalid",
+      "expected_candidate_error": "scope-root-mismatch:include:auxiliary/blue/item"
+    },
+    {
+      "id": "exclude_literal_root_mismatch",
+      "mutation": {
+        "op": "set",
+        "path": ["scope", "exclude"],
+        "value": ["auxiliary/red/document/restricted"]
+      },
+      "expected": "invalid",
+      "expected_candidate_error": "scope-root-mismatch:exclude:auxiliary/red/document/restricted"
+    }
+  ],
+  "historical_v1_sources": [
+    {
+      "id": "public-template",
+      "path": "templates/expert-package.json",
+      "selector": []
+    },
+    {
+      "id": "manifest-contract-base",
+      "path": "fixtures/expert_manifest_cases.json",
+      "selector": ["base_manifest"]
+    },
+    {
+      "id": "expiry-contract-base",
+      "path": "fixtures/expert_expiry_cases.json",
+      "selector": ["base_manifest"]
+    },
+    {
+      "id": "layer-identity-base",
+      "path": "fixtures/expert_layer_identity_cases.json",
+      "selector": ["base_manifest"]
+    }
+  ]
+}

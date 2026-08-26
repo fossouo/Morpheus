@@ -21,6 +21,7 @@ python3 scripts/evaluate_specificity_floor_exclusion_routing.py
 python3 scripts/evaluate_equal_specificity_exclusion_isolation.py
 python3 scripts/evaluate_declared_root_boundary.py
 python3 scripts/evaluate_package_root_ownership.py
+python3 scripts/evaluate_expert_manifest_root.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -126,6 +127,13 @@ constrains a package's leading wildcard to its own root, preserves unrelated-roo
 rejects inconsistent declarations before installing state. Passing it is not evidence that a
 package's declaration is trustworthy, nor of authorization-system correctness, semantic policy
 interpretation, scalable performance, or runtime safety.
+
+The EXP-026 evaluator tests a quarantined opt-in manifest contract for a package-owned literal
+root while routing historical v1 manifests through the unchanged stable validator. It rejects
+missing, empty, wildcard, nested, dot-segment, and literal-pattern-mismatched roots in the locked
+fixture. The contract is not promoted by this experiment, and passing it is not evidence of
+declaration trust, migration safety, authorization correctness, semantic routing, scalable
+performance, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
