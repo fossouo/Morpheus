@@ -1,0 +1,46 @@
+{
+  "schema": "expert-manifest-integrated-root-routing-cases-v1",
+  "reference_date": "2026-08-27",
+  "routing_fixture": {
+    "path": "fixtures/expert_package_root_ownership_cases.json",
+    "sha256": "66e0c7cb906f555f9e4858efa3c65f4be323fafb89a0c5c565ff96bc1027aac9"
+  },
+  "manifest_fixture": {
+    "path": "fixtures/expert_manifest_root_cases.json",
+    "sha256": "b7145d0fd87ff04c44fbcbf8b2ae8e046c4348d2148f38126a9c66ac0f1d789f"
+  },
+  "invalid_manifests": [
+    {
+      "id": "INV-001",
+      "package_id": "synthetic-root-alpha",
+      "mutation": {"op": "remove", "path": ["root"]},
+      "expected_error": "invalid expert manifest: ['missing-key:root']"
+    },
+    {
+      "id": "INV-002",
+      "package_id": "synthetic-root-alpha",
+      "mutation": {"op": "set", "path": ["root"], "value": "*"},
+      "expected_error": "invalid expert manifest: ['invalid-root']"
+    },
+    {
+      "id": "INV-003",
+      "package_id": "synthetic-root-alpha",
+      "mutation": {
+        "op": "set",
+        "path": ["scope", "include", 0],
+        "value": "auxiliary/blue/legacy"
+      },
+      "expected_error": "invalid expert manifest: ['scope-root-mismatch:include:auxiliary/blue/legacy']"
+    },
+    {
+      "id": "INV-004",
+      "package_id": "synthetic-root-beta",
+      "mutation": {
+        "op": "set",
+        "path": ["expires_on"],
+        "value": "2026-08-26"
+      },
+      "expected_error": "invalid expert manifest: ['expired']"
+    }
+  ]
+}

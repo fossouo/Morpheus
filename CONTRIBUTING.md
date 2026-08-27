@@ -22,6 +22,7 @@ python3 scripts/evaluate_equal_specificity_exclusion_isolation.py
 python3 scripts/evaluate_declared_root_boundary.py
 python3 scripts/evaluate_package_root_ownership.py
 python3 scripts/evaluate_expert_manifest_root.py
+python3 scripts/evaluate_manifest_integrated_root_routing.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -134,6 +135,13 @@ missing, empty, wildcard, nested, dot-segment, and literal-pattern-mismatched ro
 fixture. The contract is not promoted by this experiment, and passing it is not evidence of
 declaration trust, migration safety, authorization correctness, semantic routing, scalable
 performance, or runtime safety.
+
+The EXP-027 evaluator moves EXP-025's sidecar roots into opt-in v2 manifests, validates them with
+the quarantined EXP-026 contract and a pinned expiry date, then reuses the unchanged EXP-025
+router. It tests exact synthetic behavioral parity, transactional invalid-manifest rejection,
+rollback, and historical v1 validation parity without promoting a stable contract. Passing is not
+evidence of declaration trust, migration safety, authorization correctness, semantic routing,
+scalable performance, or runtime safety.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
