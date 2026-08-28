@@ -143,6 +143,14 @@ rollback, and historical v1 validation parity without promoting a stable contrac
 evidence of declaration trust, migration safety, authorization correctness, semantic routing,
 scalable performance, or runtime safety.
 
+The EXP-028 evaluator tests stable v2 promotion against the quarantined contract, historical v1
+sources, held-out routing, invalid-composition rejection, and rollback. The locked run failed
+because one structurally valid historical v1 source was expired at the promotion date; running
+the evaluator directly reproduces that failure and is expected to exit non-zero. No stable
+validator or template change was promoted, and the result does not establish declaration trust,
+migration safety, authorization correctness, semantic routing, scalable performance, runtime
+safety, or self-improvement.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

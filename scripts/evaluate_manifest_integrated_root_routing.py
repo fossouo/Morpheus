@@ -173,7 +173,11 @@ class ManifestIntegratedRootKernel(PackageRootOwnershipKernel):
         super().compose_quarantined_experts(entries, reference_date=reference_date)
 
 
-def run_trial(fixture: dict[str, Any]) -> dict[str, Any]:
+def run_trial(
+    fixture: dict[str, Any],
+    *,
+    candidate_kernel_class: type[ManifestIntegratedRootKernel] = ManifestIntegratedRootKernel,
+) -> dict[str, Any]:
     routing_path, _ = _read_pinned_json(fixture["routing_fixture"])
     routing = load_routing_fixture(routing_path)
     reference_date = date.fromisoformat(fixture["reference_date"])
@@ -202,7 +206,7 @@ def run_trial(fixture: dict[str, Any]) -> dict[str, Any]:
         baseline_probe = baseline.answer(routing["cross_root_probe"]["request"])
         baseline_absent = baseline.answer(routing["absent_scope_probe"]["request"])
 
-        candidate = ManifestIntegratedRootKernel()
+        candidate = candidate_kernel_class()
         candidate.compose_quarantined_experts(
             [by_id[package_id] for package_id in order], reference_date=reference_date
         )
@@ -236,7 +240,7 @@ def run_trial(fixture: dict[str, Any]) -> dict[str, Any]:
         )
         _apply_mutation(package, case["mutation"])
         for packages in (mutated, list(reversed(mutated))):
-            candidate = ManifestIntegratedRootKernel()
+            candidate = candidate_kernel_class()
             error = ""
             try:
                 candidate.compose_quarantined_experts(
