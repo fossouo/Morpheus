@@ -1,0 +1,62 @@
+{
+  "schema": "expert-manifest-temporal-corpus-cases-v1",
+  "promotion_reference_date": "2026-08-28",
+  "sources": [
+    {
+      "id": "public-template",
+      "path": "templates/expert-package.json",
+      "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26",
+      "selector": [],
+      "expected_expires_on": "2026-09-01",
+      "expected_structural_errors": [],
+      "lifecycle_cases": [
+        {"id": "before-expiry", "reference_date": "2026-08-31", "expected_errors": []},
+        {"id": "on-expiry", "reference_date": "2026-09-01", "expected_errors": []},
+        {"id": "after-expiry", "reference_date": "2026-09-02", "expected_errors": ["expired"]},
+        {"id": "promotion-date", "reference_date": "2026-08-28", "expected_errors": []}
+      ]
+    },
+    {
+      "id": "manifest-contract-base",
+      "path": "fixtures/expert_manifest_cases.json",
+      "sha256": "afb45400459a0338c44339885c01910c1d48928d259ac016ea99c5b2f3778ee0",
+      "selector": ["base_manifest"],
+      "expected_expires_on": "2026-09-01",
+      "expected_structural_errors": [],
+      "lifecycle_cases": [
+        {"id": "before-expiry", "reference_date": "2026-08-31", "expected_errors": []},
+        {"id": "on-expiry", "reference_date": "2026-09-01", "expected_errors": []},
+        {"id": "after-expiry", "reference_date": "2026-09-02", "expected_errors": ["expired"]},
+        {"id": "promotion-date", "reference_date": "2026-08-28", "expected_errors": []}
+      ]
+    },
+    {
+      "id": "expiry-contract-base",
+      "path": "fixtures/expert_expiry_cases.json",
+      "sha256": "39cade0bb96e72487a88b8b6caac525fa4e49ebe9eec2ff784dcc2ff77b1148d",
+      "selector": ["base_manifest"],
+      "expected_expires_on": "2026-08-09",
+      "expected_structural_errors": [],
+      "lifecycle_cases": [
+        {"id": "before-expiry", "reference_date": "2026-08-08", "expected_errors": []},
+        {"id": "on-expiry", "reference_date": "2026-08-09", "expected_errors": []},
+        {"id": "after-expiry", "reference_date": "2026-08-10", "expected_errors": ["expired"]},
+        {"id": "promotion-date", "reference_date": "2026-08-28", "expected_errors": ["expired"]}
+      ]
+    },
+    {
+      "id": "layer-identity-base",
+      "path": "fixtures/expert_layer_identity_cases.json",
+      "sha256": "02666949f0365886956b3ac068fdeb2fefbc5fddf0aa6f3f769de61f08bf80af",
+      "selector": ["base_manifest"],
+      "expected_expires_on": "2026-09-01",
+      "expected_structural_errors": [],
+      "lifecycle_cases": [
+        {"id": "before-expiry", "reference_date": "2026-08-31", "expected_errors": []},
+        {"id": "on-expiry", "reference_date": "2026-09-01", "expected_errors": []},
+        {"id": "after-expiry", "reference_date": "2026-09-02", "expected_errors": ["expired"]},
+        {"id": "promotion-date", "reference_date": "2026-08-28", "expected_errors": []}
+      ]
+    }
+  ]
+}

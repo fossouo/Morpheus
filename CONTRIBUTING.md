@@ -23,6 +23,7 @@ python3 scripts/evaluate_declared_root_boundary.py
 python3 scripts/evaluate_package_root_ownership.py
 python3 scripts/evaluate_expert_manifest_root.py
 python3 scripts/evaluate_manifest_integrated_root_routing.py
+python3 scripts/evaluate_expert_manifest_temporal_corpus.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -150,6 +151,12 @@ the evaluator directly reproduces that failure and is expected to exit non-zero.
 validator or template change was promoted, and the result does not establish declaration trust,
 migration safety, authorization correctness, semantic routing, scalable performance, runtime
 safety, or self-improvement.
+
+The EXP-029 evaluator separates invariant structural compatibility from pinned-date lifecycle
+acceptance across the four historical v1 sources used by EXP-026. It locks before, on, after,
+and EXP-028 reference dates without changing the stable validator or retrying v2 promotion.
+Passing does not establish source authenticity, clock trust, migration safety, runtime safety,
+or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
