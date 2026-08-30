@@ -158,6 +158,13 @@ and EXP-028 reference dates without changing the stable validator or retrying v2
 Passing does not establish source authenticity, clock trust, migration safety, runtime safety,
 or self-improvement.
 
+The EXP-030 evaluator retries the v2 promotion gate only after consuming EXP-029's separate
+structural and pinned-date lifecycle expectations. It also replays EXP-027 routing, invalid
+composition, and rollback behavior. Every locked threshold passed, so the stable validator now
+accepts opt-in v2 manifests while the public template remains on v1. Passing does not establish
+declaration authenticity, clock trust, migration safety, authorization correctness, semantic
+routing, runtime safety, or self-improvement.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

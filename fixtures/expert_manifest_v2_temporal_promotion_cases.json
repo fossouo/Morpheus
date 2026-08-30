@@ -1,0 +1,15 @@
+{
+  "schema": "expert-manifest-v2-temporal-promotion-cases-v1",
+  "manifest_fixture": {
+    "path": "fixtures/expert_manifest_root_cases.json",
+    "sha256": "b7145d0fd87ff04c44fbcbf8b2ae8e046c4348d2148f38126a9c66ac0f1d789f"
+  },
+  "integration_fixture": {
+    "path": "fixtures/expert_manifest_integrated_root_routing_cases.json",
+    "sha256": "d73190d8929aa6d34d307906a98a19e2050228ca06fb44396d1577bf49acaaa6"
+  },
+  "temporal_fixture": {
+    "path": "fixtures/expert_manifest_temporal_corpus_cases.json",
+    "sha256": "768cdb430d0fca15955a3586ad09b591dfc7ae75af563f6662b4928284cb41da"
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the structural contract for a quarantined expert package manifest."""
+"""Validate stable v1 and opt-in v2 quarantined expert package manifests."""
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ from typing import Any
 
 
 SCHEMA = "expert-package-v1"
+V2_SCHEMA = "expert-package-v2"
 TOP_LEVEL_KEYS = {
     "schema",
     "package_id",
@@ -24,6 +25,7 @@ TOP_LEVEL_KEYS = {
     "expires_on",
     "lifecycle",
 }
+V2_TOP_LEVEL_KEYS = TOP_LEVEL_KEYS | {"root"}
 LAYER_KEYS = {"knowledge", "experience", "skills", "tools", "adapters"}
 PACKAGE_ID_RE = re.compile(r"^[a-z][a-z0-9-]{2,63}$")
 VERSION_RE = re.compile(r"^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$")
@@ -39,6 +41,72 @@ def _string_list(value: Any, *, nonempty: bool) -> bool:
     )
 
 
+def _scope_segments(scope: Any) -> tuple[str, ...]:
+    if not isinstance(scope, str) or not scope:
+        raise ValueError("scope must be a non-empty string")
+    segments = tuple(scope.split("/"))
+    if any(not segment or segment in {".", ".."} for segment in segments):
+        raise ValueError("scope must contain canonical non-empty segments")
+    return segments
+
+
+def _pattern_segments(scope: Any) -> tuple[str, ...]:
+    segments = _scope_segments(scope)
+    if any("*" in segment and segment != "*" for segment in segments):
+        raise ValueError("wildcard must occupy a complete scope segment")
+    if segments.count("*") > 1:
+        raise ValueError("scope patterns may contain at most one wildcard segment")
+    return segments
+
+
+def _validate_v2_manifest(
+    manifest: dict[str, Any],
+    *,
+    reference_date: date | None,
+    enforce_layer_id_uniqueness: bool,
+) -> list[str]:
+    errors: list[str] = []
+    keys = set(manifest)
+    for key in sorted(V2_TOP_LEVEL_KEYS - keys):
+        errors.append(f"missing-key:{key}")
+    for key in sorted(keys - V2_TOP_LEVEL_KEYS):
+        errors.append(f"unexpected-key:{key}")
+    if errors:
+        return errors
+
+    projected = dict(manifest)
+    projected.pop("root")
+    projected["schema"] = SCHEMA
+    errors.extend(
+        validate_manifest(
+            projected,
+            reference_date=reference_date,
+            enforce_layer_id_uniqueness=enforce_layer_id_uniqueness,
+        )
+    )
+    if errors:
+        return errors
+
+    root = manifest["root"]
+    try:
+        root_segments = _scope_segments(root)
+    except ValueError:
+        return ["invalid-root"]
+    if len(root_segments) != 1 or "*" in root_segments[0]:
+        return ["invalid-root"]
+
+    for name in ("include", "exclude"):
+        for pattern in manifest["scope"][name]:
+            try:
+                pattern_segments = _pattern_segments(pattern)
+            except ValueError:
+                errors.append(f"invalid-scope-pattern:{name}:{pattern}")
+                continue
+            if pattern_segments[0] not in {"*", root}:
+                errors.append(f"scope-root-mismatch:{name}:{pattern}")
+    return errors
+
+
 def validate_manifest(
     manifest: Any,
     *,
@@ -48,6 +116,13 @@ def validate_manifest(
     """Validate structure and, when supplied, expiry against a pinned date."""
     if not isinstance(manifest, dict):
         return ["manifest-not-object"]
+
+    if manifest.get("schema") == V2_SCHEMA:
+        return _validate_v2_manifest(
+            manifest,
+            reference_date=reference_date,
+            enforce_layer_id_uniqueness=enforce_layer_id_uniqueness,
+        )
 
     errors: list[str] = []
     keys = set(manifest)

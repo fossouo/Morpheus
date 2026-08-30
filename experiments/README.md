@@ -34,6 +34,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-027 | Manifest-integrated root routing | complete | pass |
 | EXP-028 | Stable expert-manifest v2 promotion | complete | fail |
 | EXP-029 | Expert-manifest temporal corpus semantics | complete | pass |
+| EXP-030 | Expert-manifest v2 temporal promotion | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

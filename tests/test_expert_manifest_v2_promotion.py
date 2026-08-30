@@ -62,14 +62,19 @@ class ExpertManifestV2PromotionTests(unittest.TestCase):
             json.dumps(self.trial, sort_keys=True), json.dumps(repeated, sort_keys=True)
         )
 
-    def test_failed_candidate_is_not_promoted(self):
+    def test_later_promotion_does_not_rewrite_the_locked_failure(self):
         manifest_fixture = load_manifest_fixture(
             ROOT / "fixtures" / "expert_manifest_root_cases.json"
         )
         manifest = build_manifest(
             manifest_fixture["base_manifest"], manifest_fixture["cases"][0]["mutation"]
         )
-        self.assertEqual(validate_manifest(manifest), ["unexpected-key:root"])
+        self.assertEqual(validate_manifest(manifest), [])
+        self.assertEqual(self.summary["historical_v1_accepted"], 3)
+        self.assertLess(
+            self.summary["historical_v1_accepted"],
+            self.summary["historical_v1_count"],
+        )
 
     def test_fixture_rejects_source_hash_drift(self):
         changed = copy.deepcopy(self.fixture)
