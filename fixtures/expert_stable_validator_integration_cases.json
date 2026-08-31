@@ -1,0 +1,8 @@
+{
+  "schema": "expert-stable-validator-integration-cases-v1",
+  "reference_date": "2026-08-31",
+  "integration_fixture": {
+    "path": "fixtures/expert_manifest_integrated_root_routing_cases.json",
+    "sha256": "d73190d8929aa6d34d307906a98a19e2050228ca06fb44396d1577bf49acaaa6"
+  }
+}

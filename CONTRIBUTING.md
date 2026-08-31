@@ -24,6 +24,7 @@ python3 scripts/evaluate_package_root_ownership.py
 python3 scripts/evaluate_expert_manifest_root.py
 python3 scripts/evaluate_manifest_integrated_root_routing.py
 python3 scripts/evaluate_expert_manifest_temporal_corpus.py
+python3 scripts/evaluate_stable_validator_integration.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -164,6 +165,13 @@ composition, and rollback behavior. Every locked threshold passed, so the stable
 accepts opt-in v2 manifests while the public template remains on v1. Passing does not establish
 declaration authenticity, clock trust, migration safety, authorization correctness, semantic
 routing, runtime safety, or self-improvement.
+
+The EXP-031 evaluator replaces the quarantined validation path in expert composition with the
+promoted stable validator and compares the complete result with EXP-030's frozen promotion-
+candidate baseline. It checks exact synthetic routing, invalid-composition rejection, clean
+state, and unload rollback without migrating the public template. Passing does not establish
+declaration authenticity, authorization correctness, semantic routing, runtime safety, natural-
+language capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

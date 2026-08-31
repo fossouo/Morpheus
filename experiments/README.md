@@ -35,6 +35,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-028 | Stable expert-manifest v2 promotion | complete | fail |
 | EXP-029 | Expert-manifest temporal corpus semantics | complete | pass |
 | EXP-030 | Expert-manifest v2 temporal promotion | complete | pass |
+| EXP-031 | Stable-validator-native expert integration | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
