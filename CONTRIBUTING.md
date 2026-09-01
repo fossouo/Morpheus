@@ -173,6 +173,12 @@ state, and unload rollback without migrating the public template. Passing does n
 declaration authenticity, authorization correctness, semantic routing, runtime safety, natural-
 language capability, or self-improvement.
 
+The EXP-032 evaluator preregisters a reversible public-template v2 migration gate. Its locked run
+stopped before routing because the experiment adapter supplied object-shaped knowledge records to
+a historical kernel that requires a list. Running the evaluator directly reproduces that failure
+and is expected to exit non-zero. The public v1 template remains unchanged, and the result provides
+no evidence for or against template migration, routing parity, or runtime safety.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

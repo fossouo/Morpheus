@@ -1,0 +1,48 @@
+{
+  "schema": "expert-public-template-v2-migration-cases-v1",
+  "reference_date": "2026-09-01",
+  "expired_date": "2026-09-02",
+  "root": "synthetic",
+  "template": {
+    "path": "templates/expert-package.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "targets": [
+    {
+      "id": "TGT-001",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/summarize synthetic notices",
+        "local_id": "synthetic-notice-format-v1"
+      },
+      "expected": "template-answer"
+    },
+    {
+      "id": "TGT-002",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "auxiliary/peer-task",
+        "local_id": "synthetic-peer-format-v1"
+      },
+      "expected": "peer-answer"
+    }
+  ],
+  "regression": {
+    "id": "REG-001",
+    "request": {
+      "operation": "scope_recall",
+      "scope": "absent/task",
+      "local_id": "missing"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "exclusion": {
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/modify source records",
+      "local_id": "synthetic-notice-format-v1"
+    },
+    "expected": "route-error:scope-excluded"
+  },
+  "unloaded_expected": "route-error:scope-not-found"
+}
