@@ -179,6 +179,14 @@ a historical kernel that requires a list. Running the evaluator directly reprodu
 and is expected to exit non-zero. The public v1 template remains unchanged, and the result provides
 no evidence for or against template migration, routing parity, or runtime safety.
 
+The EXP-033 evaluator pins and reproduces EXP-032's failure, then changes only the adapter's
+knowledge-record container to the historical list-of-records shape and replays the same bounded
+gate. The locked run reached routing but failed because its exclusion request matches no include,
+so the package-owned router returns `scope-not-found` rather than the fixture's expected
+`scope-excluded`; running the evaluator directly reproduces this failure and is expected to exit
+non-zero. No public template was changed, and the result does not establish migration ergonomics,
+semantic routing, runtime safety, natural-language capability, or self-improvement.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

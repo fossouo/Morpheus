@@ -1,0 +1,8 @@
+{
+  "schema": "expert-public-template-v2-migration-replay-cases-v1",
+  "source_fixture": {
+    "path": "fixtures/expert_public_template_v2_migration_cases.json",
+    "sha256": "4678677be46e68b259d3d968edf79739384d87ebf0ae434cb5877e1d5568aa7f"
+  },
+  "adapter_change": "knowledge-record-mapping-to-sorted-list"
+}

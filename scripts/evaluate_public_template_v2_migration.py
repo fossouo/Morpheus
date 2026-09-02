@@ -162,12 +162,14 @@ def _packages(candidate: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
-def run_trial(fixture: dict[str, Any]) -> dict[str, Any]:
+def run_trial(
+    fixture: dict[str, Any], *, package_builder=_packages
+) -> dict[str, Any]:
     template, _ = _read_pinned_template(fixture["template"])
     reference_date = date.fromisoformat(fixture["reference_date"])
     expired_date = date.fromisoformat(fixture["expired_date"])
     candidate = migrate_template(template, fixture["root"])
-    packages = _packages(candidate)
+    packages = package_builder(candidate)
     package_ids = [package["manifest"]["package_id"] for package in packages]
     by_id = {package["manifest"]["package_id"]: package for package in packages}
     orders = [package_ids, list(reversed(package_ids))]
