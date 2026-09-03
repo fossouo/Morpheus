@@ -38,6 +38,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-031 | Stable-validator-native expert integration | complete | pass |
 | EXP-032 | Public expert-template v2 migration gate | complete | fail |
 | EXP-033 | Public expert-template v2 migration replay | complete | fail |
+| EXP-034 | Template disjoint-exclusion semantics | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

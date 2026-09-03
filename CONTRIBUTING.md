@@ -25,6 +25,7 @@ python3 scripts/evaluate_expert_manifest_root.py
 python3 scripts/evaluate_manifest_integrated_root_routing.py
 python3 scripts/evaluate_expert_manifest_temporal_corpus.py
 python3 scripts/evaluate_stable_validator_integration.py
+python3 scripts/evaluate_template_disjoint_exclusion.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -186,6 +187,13 @@ so the package-owned router returns `scope-not-found` rather than the fixture's 
 `scope-excluded`; running the evaluator directly reproduces this failure and is expected to exit
 non-zero. No public template was changed, and the result does not establish migration ergonomics,
 semantic routing, runtime safety, natural-language capability, or self-improvement.
+
+The EXP-034 diagnostic pins EXP-033 and changes only the disjoint exclusion's expected
+response in memory. It reports response equality separately from correctness, checks literal
+include/exclude reachability and independent reverse projection, and requires identical complete
+trials before and after the scoring correction. It preserves both historical failures and the
+public v1 template. Passing an exposed-case diagnostic establishes no new behavioral capability,
+migration ergonomics, authorization correctness, runtime safety, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

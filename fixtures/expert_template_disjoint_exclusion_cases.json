@@ -1,0 +1,11 @@
+{
+  "schema": "expert-template-disjoint-exclusion-cases-v1",
+  "source_fixture": {
+    "path": "fixtures/expert_public_template_v2_migration_replay_cases.json",
+    "sha256": "81da58fc0167b0a5e77b2b3db30bc0aff6f3542fe07e4630e5e03843d441513c"
+  },
+  "expected_change": {
+    "from": "route-error:scope-excluded",
+    "to": "route-error:scope-not-found"
+  }
+}
