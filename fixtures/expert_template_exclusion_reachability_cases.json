@@ -1,0 +1,52 @@
+{
+  "schema": "expert-template-exclusion-reachability-cases-v1",
+  "reference_date": "2026-09-01",
+  "root": "synthetic",
+  "template": {
+    "path": "templates/expert-package.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "cases": [
+    {
+      "id": "PAIR-DISJOINT-035",
+      "topology": "disjoint",
+      "include": ["summarize synthetic notices"],
+      "exclude": ["modify source records"],
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/modify source records/heldout/amber-035",
+        "local_id": "synthetic-notice-format-v1"
+      },
+      "expected_include_matches": 0,
+      "expected_exclude_matches": 1,
+      "expected": "route-error:scope-not-found"
+    },
+    {
+      "id": "PAIR-NESTED-035",
+      "topology": "nested",
+      "include": ["summarize synthetic notices"],
+      "exclude": ["summarize synthetic notices/restricted"],
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/summarize synthetic notices/restricted/heldout/cobalt-035",
+        "local_id": "synthetic-notice-format-v1"
+      },
+      "expected_include_matches": 1,
+      "expected_exclude_matches": 1,
+      "expected": "route-error:scope-excluded"
+    }
+  ],
+  "allowed": {
+    "operation": "scope_recall",
+    "scope": "synthetic/summarize synthetic notices/heldout/verdant-035",
+    "local_id": "synthetic-notice-format-v1",
+    "expected": "template-answer"
+  },
+  "absent": {
+    "operation": "scope_recall",
+    "scope": "synthetic/unlisted/heldout/silver-035",
+    "local_id": "missing",
+    "expected": "route-error:scope-not-found"
+  },
+  "unloaded_expected": "route-error:scope-not-found"
+}

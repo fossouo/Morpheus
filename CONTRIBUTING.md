@@ -26,6 +26,7 @@ python3 scripts/evaluate_manifest_integrated_root_routing.py
 python3 scripts/evaluate_expert_manifest_temporal_corpus.py
 python3 scripts/evaluate_stable_validator_integration.py
 python3 scripts/evaluate_template_disjoint_exclusion.py
+python3 scripts/evaluate_template_exclusion_reachability.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -194,6 +195,13 @@ include/exclude reachability and independent reverse projection, and requires id
 trials before and after the scoring correction. It preserves both historical failures and the
 public v1 template. Passing an exposed-case diagnostic establishes no new behavioral capability,
 migration ergonomics, authorization correctness, runtime safety, or self-improvement.
+
+The EXP-035 evaluator contrasts a fresh disjoint exclusion request with a fresh request
+nested beneath the same package's include. It checks an independent literal reachability
+oracle, both v1 sidecar-root and stable-v2 paths, both package orders, allowed and absent
+regressions, and unload rollback. Passing establishes only the locked literal-prefix error
+precedence; it changes no router or public template and is not evidence of authorization
+correctness, semantic routing, runtime safety, natural-language capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
