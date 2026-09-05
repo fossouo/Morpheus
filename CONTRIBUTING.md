@@ -27,6 +27,7 @@ python3 scripts/evaluate_expert_manifest_temporal_corpus.py
 python3 scripts/evaluate_stable_validator_integration.py
 python3 scripts/evaluate_template_disjoint_exclusion.py
 python3 scripts/evaluate_template_exclusion_reachability.py
+python3 scripts/evaluate_public_template_v2_decision.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -202,6 +203,12 @@ oracle, both v1 sidecar-root and stable-v2 paths, both package orders, allowed a
 regressions, and unload rollback. Passing establishes only the locked literal-prefix error
 precedence; it changes no router or public template and is not evidence of authorization
 correctness, semantic routing, runtime safety, natural-language capability, or self-improvement.
+
+The EXP-036 evaluator combines the corrected disjoint and reachable nested evidence with
+validation, expiry, projection, routing, regression, order, rollback, and direct historical
+SHA-256 pin checks. It decides whether an in-place public-template migration is safe without
+changing the template. Passing this decision protocol is not a capability gain and does not
+itself authorize migration, runtime use, or self-improvement claims.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

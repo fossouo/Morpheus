@@ -40,6 +40,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-033 | Public expert-template v2 migration replay | complete | fail |
 | EXP-034 | Template disjoint-exclusion semantics | complete | pass |
 | EXP-035 | Template exclusion reachability pair | complete | pass |
+| EXP-036 | Public template v2 migration decision | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

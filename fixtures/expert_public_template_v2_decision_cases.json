@@ -1,0 +1,29 @@
+{
+  "schema": "expert-public-template-v2-decision-cases-v1",
+  "reference_date": "2026-09-01",
+  "expired_date": "2026-09-02",
+  "root": "synthetic",
+  "template": {
+    "path": "templates/expert-package.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "evidence": [
+    {
+      "id": "EXP-034",
+      "path": "fixtures/expert_template_disjoint_exclusion_cases.json",
+      "sha256": "44889021ba9ce9140adde0406afd7eb72d9eb4204e5f1718ed3ec59e7a84a424"
+    },
+    {
+      "id": "EXP-035",
+      "path": "fixtures/expert_template_exclusion_reachability_cases.json",
+      "sha256": "cc279351719e3c89016a221ffdbd8f2f1004e8f56a30166a7fac9afb0b8ff2e6"
+    }
+  ],
+  "direct_template_pins": [
+    "fixtures/expert_manifest_temporal_corpus_cases.json",
+    "fixtures/expert_public_template_v2_migration_cases.json",
+    "fixtures/expert_template_exclusion_reachability_cases.json"
+  ],
+  "expected_current_pin_count": 3,
+  "expected_candidate_preserved_pins": 0
+}
