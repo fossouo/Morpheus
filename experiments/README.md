@@ -41,6 +41,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-034 | Template disjoint-exclusion semantics | complete | pass |
 | EXP-035 | Template exclusion reachability pair | complete | pass |
 | EXP-036 | Public template v2 migration decision | complete | pass |
+| EXP-037 | Immutable v1 snapshot rebinding | complete | fail |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

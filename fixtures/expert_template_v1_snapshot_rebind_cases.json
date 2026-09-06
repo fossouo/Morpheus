@@ -1,0 +1,38 @@
+{
+  "schema": "expert-template-v1-snapshot-rebind-cases-v1",
+  "template": {
+    "path": "templates/expert-package.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "snapshot": {
+    "path": "templates/archive/expert-package-v1.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "direct_pins": [
+    {
+      "id": "temporal-corpus",
+      "path": "fixtures/expert_manifest_temporal_corpus_cases.json",
+      "sha256": "768cdb430d0fca15955a3586ad09b591dfc7ae75af563f6662b4928284cb41da",
+      "selector": ["sources", "public-template"]
+    },
+    {
+      "id": "migration",
+      "path": "fixtures/expert_public_template_v2_migration_cases.json",
+      "sha256": "4678677be46e68b259d3d968edf79739384d87ebf0ae434cb5877e1d5568aa7f",
+      "selector": ["template"]
+    },
+    {
+      "id": "reachability",
+      "path": "fixtures/expert_template_exclusion_reachability_cases.json",
+      "sha256": "cc279351719e3c89016a221ffdbd8f2f1004e8f56a30166a7fac9afb0b8ff2e6",
+      "selector": ["template"]
+    }
+  ],
+  "expected_baseline_loaders": 3,
+  "expected_rebound_loaders": 1,
+  "expected_path_blockers": {
+    "migration": "template must contain the public path and SHA-256",
+    "reachability": "template pin is unsupported"
+  },
+  "expected_transitive_pins": 3
+}

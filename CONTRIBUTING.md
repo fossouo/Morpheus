@@ -210,6 +210,13 @@ SHA-256 pin checks. It decides whether an in-place public-template migration is 
 changing the template. Passing this decision protocol is not a capability gain and does not
 itself authorize migration, runtime use, or self-improvement claims.
 
+The EXP-037 evaluator tests an exact archived v1 template and an in-memory path-only rebinding
+of the three direct historical template pins. Its locked run stopped before scoring because the
+temporal-corpus selector resolves to a full source record while the protocol incorrectly expected
+only its path and hash fields. Running the evaluator directly reproduces that failure and is
+expected to exit non-zero. The snapshot is quarantined, all historical references and the public
+v1 template remain unchanged, and the result provides no evidence for or against migration.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.
