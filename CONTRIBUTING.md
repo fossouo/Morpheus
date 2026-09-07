@@ -28,6 +28,7 @@ python3 scripts/evaluate_stable_validator_integration.py
 python3 scripts/evaluate_template_disjoint_exclusion.py
 python3 scripts/evaluate_template_exclusion_reachability.py
 python3 scripts/evaluate_public_template_v2_decision.py
+python3 scripts/evaluate_template_v1_snapshot_rebind_replay.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -216,6 +217,14 @@ temporal-corpus selector resolves to a full source record while the protocol inc
 only its path and hash fields. Running the evaluator directly reproduces that failure and is
 expected to exit non-zero. The snapshot is quarantined, all historical references and the public
 v1 template remain unchanged, and the result provides no evidence for or against migration.
+
+The EXP-038 evaluator pins and reproduces EXP-037's selector-shape failure, then changes only
+the selected full source object's `path` member in memory before replaying the same loaders,
+temporal behavior, fixture hashes, and transitive-pin counts. The locked run failed because
+EXP-037's own fixture added one dependency edge for each source: six pins were found instead of
+three. Running the evaluator directly reproduces this failure and is expected to exit non-zero.
+It does not migrate the public template, rewrite historical fixtures, establish runtime safety,
+add behavioral capability, or support self-improvement claims.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

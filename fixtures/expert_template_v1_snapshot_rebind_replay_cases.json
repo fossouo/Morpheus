@@ -1,0 +1,22 @@
+{
+  "schema": "expert-template-v1-snapshot-rebind-replay-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-037",
+    "path": "experiments/EXP-037-immutable-v1-snapshot-rebinding.md",
+    "sha256": "6ab13c84a198ca414fb2e0efa3c013288eb1c777848886110782185f5bc56a6d"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_template_v1_snapshot_rebind_cases.json",
+    "sha256": "a1847d14266d4cb3e983e38849818fcbbbc47331f6e494e13f7f86cfa6d89350"
+  },
+  "expected_legacy_error": "temporal-corpus direct pin changed",
+  "expected_full_source_selector_repairs": 1,
+  "expected_baseline_loaders": 3,
+  "expected_rebound_loaders": 1,
+  "expected_path_blockers": {
+    "migration": "template must contain the public path and SHA-256",
+    "reachability": "template pin is unsupported"
+  },
+  "expected_transitive_pins": 3,
+  "expected_decision": "defer-for-path-contract-and-transitive-pin-plan"
+}
