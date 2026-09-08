@@ -29,6 +29,7 @@ python3 scripts/evaluate_template_disjoint_exclusion.py
 python3 scripts/evaluate_template_exclusion_reachability.py
 python3 scripts/evaluate_public_template_v2_decision.py
 python3 scripts/evaluate_template_v1_snapshot_rebind_replay.py
+python3 scripts/evaluate_template_dependency_edge_census.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -225,6 +226,12 @@ EXP-037's own fixture added one dependency edge for each source: six pins were f
 three. Running the evaluator directly reproduces this failure and is expected to exit non-zero.
 It does not migrate the public template, rewrite historical fixtures, establish runtime safety,
 add behavioral capability, or support self-improvement claims.
+
+The EXP-039 evaluator pins EXP-038, classifies its six source-fixture hash references as three
+pre-existing consumer edges and three experiment-evidence edges, then compares an in-memory
+source rewrite with an unused versioned-v2 template path. Passing preserves the public v1
+template and every historical fixture; it supports only testing a versioned-path design next and
+does not authorize migration, runtime use, behavioral-capability claims, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

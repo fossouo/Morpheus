@@ -1,0 +1,71 @@
+{
+  "schema": "expert-template-dependency-edge-census-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-038",
+    "path": "experiments/EXP-038-immutable-v1-snapshot-rebind-replay.md",
+    "sha256": "9f10707b341da4413a392a155456d06eff41abafda5998de900369bf640e990b"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_template_v1_snapshot_rebind_replay_cases.json",
+    "sha256": "aa9333fcbbf6f6eaa743c6412808413362f643554389903658e339e5cb33259c"
+  },
+  "evidence_fixture": {
+    "path": "fixtures/expert_template_v1_snapshot_rebind_cases.json",
+    "sha256": "a1847d14266d4cb3e983e38849818fcbbbc47331f6e494e13f7f86cfa6d89350"
+  },
+  "reference_date": "2026-09-01",
+  "root": "synthetic",
+  "versioned_path": "templates/expert-package-v2.json",
+  "expected_prior_transitive_pins": 6,
+  "expected_edges": [
+    {
+      "source_id": "temporal-corpus",
+      "class": "consumer",
+      "referrer": "fixtures/expert_manifest_v2_temporal_promotion_cases.json",
+      "pointer": "/temporal_fixture/sha256"
+    },
+    {
+      "source_id": "migration",
+      "class": "consumer",
+      "referrer": "fixtures/expert_public_template_v2_migration_replay_cases.json",
+      "pointer": "/source_fixture/sha256"
+    },
+    {
+      "source_id": "reachability",
+      "class": "consumer",
+      "referrer": "fixtures/expert_public_template_v2_decision_cases.json",
+      "pointer": "/evidence/1/sha256"
+    },
+    {
+      "source_id": "temporal-corpus",
+      "class": "experiment-evidence",
+      "referrer": "fixtures/expert_template_v1_snapshot_rebind_cases.json",
+      "pointer": "/direct_pins/0/sha256"
+    },
+    {
+      "source_id": "migration",
+      "class": "experiment-evidence",
+      "referrer": "fixtures/expert_template_v1_snapshot_rebind_cases.json",
+      "pointer": "/direct_pins/1/sha256"
+    },
+    {
+      "source_id": "reachability",
+      "class": "experiment-evidence",
+      "referrer": "fixtures/expert_template_v1_snapshot_rebind_cases.json",
+      "pointer": "/direct_pins/2/sha256"
+    }
+  ],
+  "expected_in_place": {
+    "source_hashes_changed": 3,
+    "edges_preserved": 0,
+    "edge_updates_required": 6,
+    "evidence_edge_updates_required": 3
+  },
+  "expected_versioned": {
+    "source_hashes_changed": 0,
+    "edges_preserved": 6,
+    "edge_updates_required": 0,
+    "evidence_edge_updates_required": 0
+  },
+  "expected_decision": "continue-with-versioned-v2-path-gate"
+}
