@@ -44,6 +44,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-037 | Immutable v1 snapshot rebinding | complete | fail |
 | EXP-038 | Immutable v1 snapshot rebinding replay | complete | fail |
 | EXP-039 | Template dependency-edge census | complete | pass |
+| EXP-040 | Versioned expert-template materialization gate | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

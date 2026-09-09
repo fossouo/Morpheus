@@ -1,0 +1,70 @@
+{
+  "schema": "expert-versioned-template-materialization-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-039",
+    "path": "experiments/EXP-039-template-dependency-edge-census.md",
+    "sha256": "817464657beefaea549ba5a10ab5f65222ec56d61f46d0751f134c022954aa81"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_template_dependency_edge_census_cases.json",
+    "sha256": "8cc8a548ba6457af789e76f2411b814e183719ec4d89a71f119810174a8023a3"
+  },
+  "public_template": {
+    "path": "templates/expert-package.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "v1_snapshot": {
+    "path": "templates/archive/expert-package-v1.json",
+    "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26"
+  },
+  "versioned_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "reference_date": "2026-09-01",
+  "expired_date": "2026-09-02",
+  "root": "synthetic",
+  "expected_baseline_materialized_consumers": 0,
+  "expected_candidate_materialized_consumers": 1,
+  "targets": [
+    {
+      "id": "TGT-040-A",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/summarize synthetic notices/heldout/ivory-040",
+        "local_id": "synthetic-notice-format-v1"
+      },
+      "expected": "template-answer"
+    },
+    {
+      "id": "TGT-040-B",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "auxiliary/peer-task/heldout/indigo-040",
+        "local_id": "synthetic-peer-format-v1"
+      },
+      "expected": "peer-answer"
+    }
+  ],
+  "regression": {
+    "id": "REG-040-A",
+    "request": {
+      "operation": "scope_recall",
+      "scope": "unlisted/heldout/silver-040",
+      "local_id": "missing"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "exclusion": {
+    "id": "EXC-040-A",
+    "request": {
+      "operation": "scope_recall",
+      "scope": "synthetic/modify source records/heldout/amber-040",
+      "local_id": "synthetic-notice-format-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "unloaded_expected": "route-error:scope-not-found",
+  "expected_removal_error": "versioned-template-missing",
+  "expected_decision": "publish-versioned-v2-template"
+}

@@ -42,6 +42,7 @@ class TemplateDependencyEdgeCensusTests(unittest.TestCase):
         summary = census.run_trial(fixture, prior_config, prior_fixture)
         self.assertEqual(summary["in_place"]["edges_preserved"], 0)
         self.assertEqual(summary["versioned"]["edges_preserved"], 6)
+        self.assertTrue(summary["versioned_path_available_at_measurement"])
         self.assertFalse(summary["migration_ready"])
 
     def test_sha_edge_pointer_escapes_tokens(self):

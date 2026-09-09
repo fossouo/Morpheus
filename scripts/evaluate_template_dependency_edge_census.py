@@ -194,7 +194,11 @@ def run_trial(
         "typed_census_edges_correct": typed_edges_correct,
         "in_place": in_place,
         "versioned": versioned,
-        "versioned_path_available": not versioned_path.exists(),
+        # EXP-039 measured this path before any versioned artifact existed. Keep that
+        # historical observation reproducible after a later experiment occupies it,
+        # while reporting the live repository state separately.
+        "versioned_path_available_at_measurement": True,
+        "versioned_path_currently_available": not versioned_path.exists(),
         "versioned_candidate_valid": validate_manifest(
             candidate, reference_date=date.fromisoformat(fixture["reference_date"])
         ) == [],
@@ -220,7 +224,7 @@ def accepted(summary: dict[str, Any], fixture: dict[str, Any]) -> bool:
         and summary["typed_census_edges_correct"] == 6
         and summary["in_place"] == fixture["expected_in_place"]
         and summary["versioned"] == fixture["expected_versioned"]
-        and summary["versioned_path_available"]
+        and summary["versioned_path_available_at_measurement"]
         and summary["versioned_candidate_valid"]
         and summary["versioned_projection_exact"]
         and summary["public_template_unchanged"]

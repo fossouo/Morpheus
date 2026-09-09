@@ -30,6 +30,7 @@ python3 scripts/evaluate_template_exclusion_reachability.py
 python3 scripts/evaluate_public_template_v2_decision.py
 python3 scripts/evaluate_template_v1_snapshot_rebind_replay.py
 python3 scripts/evaluate_template_dependency_edge_census.py
+python3 scripts/evaluate_versioned_template_materialization.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -231,7 +232,15 @@ The EXP-039 evaluator pins EXP-038, classifies its six source-fixture hash refer
 pre-existing consumer edges and three experiment-evidence edges, then compares an in-memory
 source rewrite with an unused versioned-v2 template path. Passing preserves the public v1
 template and every historical fixture; it supports only testing a versioned-path design next and
-does not authorize migration, runtime use, behavioral-capability claims, or self-improvement.
+does not authorize migration, runtime use, behavioral-capability claims, or self-improvement. Its
+path-availability result is frozen as the measurement-time observation; the evaluator reports the
+current path state separately so later materialization cannot invalidate the historical result.
+
+The EXP-040 evaluator pins EXP-039 and materializes its canonical v2 candidate at a separate
+versioned path with one new synthetic consumer. It checks the six locked v1 dependency edges,
+byte-exact projection, pinned lifecycle, exact synthetic routing, unload rollback, and fail-closed
+removal in an isolated temporary copy. Passing does not replace public v1, authorize production
+use, establish behavioral capability, or support self-improvement claims.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
