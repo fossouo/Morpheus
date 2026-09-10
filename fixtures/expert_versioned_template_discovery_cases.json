@@ -1,0 +1,168 @@
+{
+  "schema": "expert-versioned-template-discovery-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-040",
+    "path": "experiments/EXP-040-versioned-template-materialization.md",
+    "sha256": "4b770370690a4d9036c501a1ef1077dce094f2ee8f3656a2d6ab6de9756cca48"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_versioned_template_materialization_cases.json",
+    "sha256": "607a2685ad064f6af7b506f9621d37addadeb8e478a3ff40871aac4fd08d370b"
+  },
+  "templates": [
+    {
+      "schema": "expert-package-v1",
+      "path": "templates/expert-package.json",
+      "sha256": "3eaf87d5d9eee66a9c6482d5d580a8b04c73bbff666746decc65d24cbfcbdb26",
+      "default": true
+    },
+    {
+      "schema": "expert-package-v2",
+      "path": "templates/expert-package-v2.json",
+      "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd",
+      "default": false
+    },
+    {
+      "schema": "expert-package-v3",
+      "path": "templates/expert-package-v3.json",
+      "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "default": false
+    }
+  ],
+  "consumers": [
+    {
+      "id": "consumer-alpha",
+      "authorship": "locked-exp-040-fixture",
+      "template": {
+        "schema": "expert-package-v2",
+        "path": "templates/expert-package-v2.json",
+        "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+      }
+    },
+    {
+      "id": "consumer-beta",
+      "authorship": "independent-static-fixture",
+      "template": {
+        "schema": "expert-package-v2",
+        "path": "templates/expert-package-v2.json",
+        "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+      },
+      "package": {
+        "manifest": {
+          "schema": "expert-package-v2",
+          "package_id": "synthetic-indexer",
+          "version": "1.0.0",
+          "scope": {
+            "include": [
+              "independent/index synthetic cards"
+            ],
+            "exclude": [
+              "independent/delete synthetic cards"
+            ]
+          },
+          "provenance": [
+            {
+              "source_id": "SRC-041",
+              "kind": "synthetic",
+              "reference": "fixture:independent-synthetic-cards-v1"
+            }
+          ],
+          "layers": {
+            "knowledge": [
+              "synthetic-card-index-v1"
+            ],
+            "experience": [],
+            "skills": [
+              "index-synthetic-card-v1"
+            ],
+            "tools": [],
+            "adapters": []
+          },
+          "tests": {
+            "target": [
+              "TGT-041-A"
+            ],
+            "held_out_regression": [
+              "REG-041-A"
+            ]
+          },
+          "expires_on": "2026-09-01",
+          "lifecycle": {
+            "state": "quarantine",
+            "rollback": {
+              "mode": "unload"
+            }
+          },
+          "root": "independent"
+        },
+        "knowledge_records": [
+          {
+            "id": "synthetic-card-index-v1",
+            "value": "independent-answer"
+          }
+        ]
+      }
+    }
+  ],
+  "reference_date": "2026-09-01",
+  "discovery_cases": [
+    {
+      "id": "DISC-041-A",
+      "requested_schema": null,
+      "expected": "selected:expert-package-v1:templates/expert-package.json"
+    },
+    {
+      "id": "DISC-041-B",
+      "requested_schema": "expert-package-v2",
+      "expected": "selected:expert-package-v2:templates/expert-package-v2.json"
+    },
+    {
+      "id": "DISC-041-C",
+      "requested_schema": "expert-package-v3",
+      "expected": "error:unsupported-template-version"
+    }
+  ],
+  "targets": [
+    {
+      "id": "TGT-041-A",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "independent/index synthetic cards/heldout/cobalt-041",
+        "local_id": "synthetic-card-index-v1"
+      },
+      "expected": "independent-answer"
+    },
+    {
+      "id": "TGT-041-B",
+      "request": {
+        "operation": "scope_recall",
+        "scope": "synthetic/summarize synthetic notices/heldout/ochre-041",
+        "local_id": "synthetic-notice-format-v1"
+      },
+      "expected": "template-answer"
+    }
+  ],
+  "regression": {
+    "id": "REG-041-A",
+    "request": {
+      "operation": "scope_recall",
+      "scope": "unlisted/heldout/pearl-041",
+      "local_id": "missing"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "exclusion": {
+    "id": "EXC-041-A",
+    "request": {
+      "operation": "scope_recall",
+      "scope": "independent/delete synthetic cards/heldout/russet-041",
+      "local_id": "synthetic-card-index-v1"
+    },
+    "expected": "route-error:scope-not-found"
+  },
+  "unloaded_expected": "route-error:scope-not-found",
+  "expected_baseline_consumers": 1,
+  "expected_candidate_consumers": 2,
+  "expected_removal_error": "error:pinned-template-missing",
+  "expected_decision": "retain-v1-default-with-opt-in-v2"
+}

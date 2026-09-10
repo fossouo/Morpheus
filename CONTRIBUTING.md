@@ -31,6 +31,7 @@ python3 scripts/evaluate_public_template_v2_decision.py
 python3 scripts/evaluate_template_v1_snapshot_rebind_replay.py
 python3 scripts/evaluate_template_dependency_edge_census.py
 python3 scripts/evaluate_versioned_template_materialization.py
+python3 scripts/evaluate_versioned_template_discovery.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -241,6 +242,13 @@ versioned path with one new synthetic consumer. It checks the six locked v1 depe
 byte-exact projection, pinned lifecycle, exact synthetic routing, unload rollback, and fail-closed
 removal in an isolated temporary copy. Passing does not replace public v1, authorize production
 use, establish behavioral capability, or support self-improvement claims.
+
+The EXP-041 evaluator pins EXP-040 and adds a second independently specified synthetic v2
+consumer. It compares default-only discovery with exact schema/path/hash selection, rejects an
+advertised unsupported version, routes and unloads the new package, and tests fail-closed v2
+removal without fallback while v1 remains the default. Passing does not establish semantic
+discovery, dependency negotiation, production readiness, behavioral capability, or
+self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
