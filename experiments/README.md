@@ -46,6 +46,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-039 | Template dependency-edge census | complete | pass |
 | EXP-040 | Versioned expert-template materialization gate | complete | pass |
 | EXP-041 | Versioned expert-template discovery | complete | pass |
+| EXP-042 | Consumer-declared template compatibility policy | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

@@ -1,0 +1,94 @@
+{
+  "schema": "expert-template-compatibility-policy-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-041",
+    "path": "experiments/EXP-041-versioned-template-discovery.md",
+    "sha256": "ed7d29163c785ad45fd652f0d075c55a65da7afe243a41b440ff2167f8aceef7"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_versioned_template_discovery_cases.json",
+    "sha256": "ff5e10a6d94767e0bd8c14372a029e9d58f6783d54fb0763da02b107679ccad5"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "reference_date": "2026-09-01",
+  "artifacts": [
+    {
+      "id": "v2-1-0-0",
+      "schema": "expert-package-v2",
+      "version": "1.0.0",
+      "path": "registry/expert-package-v2-1.0.0.json",
+      "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+    },
+    {
+      "id": "v2-1-0-2",
+      "schema": "expert-package-v2",
+      "version": "1.0.2",
+      "path": "registry/expert-package-v2-1.0.2.json",
+      "sha256": "735f227fd43b30b76a2034e549c585759ec72ad78dd6f41444f79febcd563ec5"
+    },
+    {
+      "id": "v2-1-1-0",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    },
+    {
+      "id": "v2-1-1-0-mirror",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/mirror/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    }
+  ],
+  "catalogs": {
+    "patch": ["v2-1-0-0", "v2-1-0-2"],
+    "minor": ["v2-1-0-0", "v2-1-0-2", "v2-1-1-0"],
+    "ambiguous": ["v2-1-0-0", "v2-1-0-2", "v2-1-1-0", "v2-1-1-0-mirror"]
+  },
+  "selection_cases": [
+    {
+      "id": "SEL-042-A",
+      "catalog": "minor",
+      "policy": {"mode": "exact", "schema": "expert-package-v2", "version": "1.0.2"},
+      "expected": "selected:expert-package-v2:1.0.2:registry/expert-package-v2-1.0.2.json"
+    },
+    {
+      "id": "SEL-042-B",
+      "catalog": "patch",
+      "policy": {"mode": "compatible", "schema": "expert-package-v2", "minimum": "1.0.1", "major": 1},
+      "expected": "selected:expert-package-v2:1.0.2:registry/expert-package-v2-1.0.2.json"
+    },
+    {
+      "id": "SEL-042-C",
+      "catalog": "minor",
+      "policy": {"mode": "compatible", "schema": "expert-package-v2", "minimum": "1.0.1", "major": 1},
+      "expected": "selected:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json"
+    },
+    {
+      "id": "SEL-042-D",
+      "catalog": "minor",
+      "policy": {"mode": "compatible", "schema": "expert-package-v2", "minimum": "1.2.0", "major": 1},
+      "expected": "error:no-compatible-template"
+    },
+    {
+      "id": "SEL-042-E",
+      "catalog": "ambiguous",
+      "policy": {"mode": "compatible", "schema": "expert-package-v2", "minimum": "1.0.1", "major": 1},
+      "expected": "error:ambiguous-highest-version"
+    }
+  ],
+  "removal": {
+    "catalog": "minor",
+    "policy": {"mode": "compatible", "schema": "expert-package-v2", "minimum": "1.0.1", "major": 1},
+    "selected_artifact": "v2-1-1-0",
+    "expected_before": "selected:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json",
+    "expected_after": "error:pinned-template-missing"
+  },
+  "expected_baseline_correct": 1,
+  "expected_candidate_correct": 5,
+  "expected_decision": "retain-exact-default-and-quarantine-compatible-selection"
+}

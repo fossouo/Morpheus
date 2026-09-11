@@ -32,6 +32,7 @@ python3 scripts/evaluate_template_v1_snapshot_rebind_replay.py
 python3 scripts/evaluate_template_dependency_edge_census.py
 python3 scripts/evaluate_versioned_template_materialization.py
 python3 scripts/evaluate_versioned_template_discovery.py
+python3 scripts/evaluate_template_compatibility_policy.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -249,6 +250,13 @@ advertised unsupported version, routes and unloads the new package, and tests fa
 removal without fallback while v1 remains the default. Passing does not establish semantic
 discovery, dependency negotiation, production readiness, behavioral capability, or
 self-improvement.
+
+The EXP-042 evaluator compares exact-only template selection with a consumer-declared minimum
+version and major-version compatibility policy over synthetic patch and minor catalogs. It
+requires one deterministic highest compatible descriptor, rejects tied highest versions, binds
+the selected artifact by path and SHA-256, and fails closed instead of downgrading after removal.
+Passing does not establish semantic compatibility, dependency negotiation, production readiness,
+behavioral capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
