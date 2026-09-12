@@ -1,0 +1,108 @@
+{
+  "schema": "expert-template-joint-compatibility-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-042",
+    "path": "experiments/EXP-042-template-compatibility-policy.md",
+    "sha256": "440f983bcc5a146d695c838b173876af8130fb96aca861e2b08fb12d54842cee"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_template_compatibility_policy_cases.json",
+    "sha256": "7c08b53a25625d6f4cbcdb445c877230b87442c57759b82a35217f36c42f923b"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "reference_date": "2026-09-01",
+  "artifacts": [
+    {
+      "id": "v2-1-0-0",
+      "schema": "expert-package-v2",
+      "version": "1.0.0",
+      "path": "registry/expert-package-v2-1.0.0.json",
+      "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+    },
+    {
+      "id": "v2-1-0-2",
+      "schema": "expert-package-v2",
+      "version": "1.0.2",
+      "path": "registry/expert-package-v2-1.0.2.json",
+      "sha256": "735f227fd43b30b76a2034e549c585759ec72ad78dd6f41444f79febcd563ec5"
+    },
+    {
+      "id": "v2-1-1-0",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    },
+    {
+      "id": "v2-1-2-0",
+      "schema": "expert-package-v2",
+      "version": "1.2.0",
+      "path": "registry/expert-package-v2-1.2.0.json",
+      "sha256": "6360580f3342115c54b928cf127c16b49fe589adf284c9dc0a9ade9b32d7deca"
+    },
+    {
+      "id": "v2-1-1-0-mirror",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/mirror/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    }
+  ],
+  "catalogs": {
+    "standard": ["v2-1-0-0", "v2-1-0-2", "v2-1-1-0", "v2-1-2-0"],
+    "ambiguous": ["v2-1-0-0", "v2-1-0-2", "v2-1-1-0", "v2-1-1-0-mirror"]
+  },
+  "selection_cases": [
+    {
+      "id": "SEL-043-A",
+      "catalog": "standard",
+      "consumers": [
+        {"id": "consumer-a", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.0", "maximum": "1.1.0", "major": 1},
+        {"id": "consumer-b", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.2", "maximum": "1.2.0", "major": 1}
+      ],
+      "expected": "selected:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json"
+    },
+    {
+      "id": "SEL-043-B",
+      "catalog": "standard",
+      "consumers": [
+        {"id": "consumer-a", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.0", "maximum": "1.0.2", "major": 1},
+        {"id": "consumer-b", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.2", "maximum": "1.1.0", "major": 1}
+      ],
+      "expected": "selected:expert-package-v2:1.0.2:registry/expert-package-v2-1.0.2.json"
+    },
+    {
+      "id": "SEL-043-C",
+      "catalog": "standard",
+      "consumers": [
+        {"id": "consumer-a", "schema": "expert-package-v2", "mode": "exact", "version": "1.0.2"},
+        {"id": "consumer-b", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.0", "maximum": "1.0.2", "major": 1}
+      ],
+      "expected": "selected:expert-package-v2:1.0.2:registry/expert-package-v2-1.0.2.json"
+    },
+    {
+      "id": "SEL-043-D",
+      "catalog": "standard",
+      "consumers": [
+        {"id": "consumer-a", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.0", "maximum": "1.0.2", "major": 1},
+        {"id": "consumer-b", "schema": "expert-package-v2", "mode": "range", "minimum": "1.1.0", "maximum": "1.2.0", "major": 1}
+      ],
+      "expected": "error:no-joint-compatible-template"
+    },
+    {
+      "id": "SEL-043-E",
+      "catalog": "ambiguous",
+      "consumers": [
+        {"id": "consumer-a", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.0", "maximum": "1.1.0", "major": 1},
+        {"id": "consumer-b", "schema": "expert-package-v2", "mode": "range", "minimum": "1.0.2", "maximum": "1.2.0", "major": 1}
+      ],
+      "expected": "error:ambiguous-joint-highest-version"
+    }
+  ],
+  "expected_baseline_correct": 1,
+  "expected_candidate_correct": 5,
+  "expected_decision": "retain-independent-default-and-quarantine-joint-selection"
+}

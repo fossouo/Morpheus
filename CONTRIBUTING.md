@@ -33,6 +33,7 @@ python3 scripts/evaluate_template_dependency_edge_census.py
 python3 scripts/evaluate_versioned_template_materialization.py
 python3 scripts/evaluate_versioned_template_discovery.py
 python3 scripts/evaluate_template_compatibility_policy.py
+python3 scripts/evaluate_template_joint_compatibility.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -257,6 +258,13 @@ requires one deterministic highest compatible descriptor, rejects tied highest v
 the selected artifact by path and SHA-256, and fails closed instead of downgrading after removal.
 Passing does not establish semantic compatibility, dependency negotiation, production readiness,
 behavioral capability, or self-improvement.
+
+The EXP-043 evaluator compares two independent highest-compatible selections with a joint gate
+over the intersection of two consumer-declared inclusive ranges. It requires one deterministic
+highest joint descriptor, preserves an exact constraint, rejects an empty intersection and a tied
+joint maximum, and records zero package-load attempts. Passing does not establish semantic
+compatibility, general dependency solving, production readiness, behavioral capability, or
+self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
