@@ -34,6 +34,7 @@ python3 scripts/evaluate_versioned_template_materialization.py
 python3 scripts/evaluate_versioned_template_discovery.py
 python3 scripts/evaluate_template_compatibility_policy.py
 python3 scripts/evaluate_template_joint_compatibility.py
+python3 scripts/evaluate_joint_template_pinned_materialization.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -265,6 +266,12 @@ highest joint descriptor, preserves an exact constraint, rejects an empty inters
 joint maximum, and records zero package-load attempts. Passing does not establish semantic
 compatibility, general dependency solving, production readiness, behavioral capability, or
 self-improvement.
+
+The EXP-044 evaluator materializes the unique template artifact selected jointly for two
+consumers, then compares fallback re-selection with exact schema/version/path/SHA-256 loading after
+the selected path is removed or its bytes are mutated while a lower joint match remains. The
+candidate remains quarantined. Passing does not establish concurrent-mutation safety, semantic
+compatibility, package behavior, production readiness, behavioral capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

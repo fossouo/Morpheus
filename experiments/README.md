@@ -48,6 +48,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-041 | Versioned expert-template discovery | complete | pass |
 | EXP-042 | Consumer-declared template compatibility policy | complete | pass |
 | EXP-043 | Joint template compatibility intersection | complete | pass |
+| EXP-044 | Joint template pinned materialization | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
