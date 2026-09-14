@@ -35,6 +35,7 @@ python3 scripts/evaluate_versioned_template_discovery.py
 python3 scripts/evaluate_template_compatibility_policy.py
 python3 scripts/evaluate_template_joint_compatibility.py
 python3 scripts/evaluate_joint_template_pinned_materialization.py
+python3 scripts/evaluate_catalog_descriptor_snapshot.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -272,6 +273,12 @@ consumers, then compares fallback re-selection with exact schema/version/path/SH
 the selected path is removed or its bytes are mutated while a lower joint match remains. The
 candidate remains quarantined. Passing does not establish concurrent-mutation safety, semantic
 compatibility, package behavior, production readiness, behavioral capability, or self-improvement.
+
+The EXP-045 evaluator mutates the selected catalog descriptor after joint selection and compares a
+shared-reference handoff with a canonical immutable byte snapshot. It changes only one of path,
+SHA-256, or version per case and performs no artifact load or repository write. Passing does not
+establish nested-object isolation, concurrent-mutation safety, provenance authenticity, package
+behavior, production readiness, behavioral capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

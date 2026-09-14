@@ -1,0 +1,83 @@
+{
+  "schema": "expert-catalog-descriptor-snapshot-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-044",
+    "path": "experiments/EXP-044-joint-template-pinned-materialization.md",
+    "sha256": "631842e52836d9bbb58ba66af81a64dee1781121dab2fd8965fa37d5efb172fb"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_joint_template_pinned_materialization_cases.json",
+    "sha256": "f88f7d75d40ee654abe7bcf9aa30dd22cb90b8f03fb2c174cec9baf2a8736d11"
+  },
+  "prior_evaluator": {
+    "path": "scripts/evaluate_joint_template_pinned_materialization.py",
+    "sha256": "eb4de6c9fcf48b1715ad3d37eaf4b65ebf60c1579fab976a9f11fe8213da7cf0"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "reference_date": "2026-09-01",
+  "artifacts": [
+    {
+      "id": "v2-1-0-2",
+      "schema": "expert-package-v2",
+      "version": "1.0.2",
+      "path": "registry/expert-package-v2-1.0.2.json",
+      "sha256": "735f227fd43b30b76a2034e549c585759ec72ad78dd6f41444f79febcd563ec5"
+    },
+    {
+      "id": "v2-1-1-0",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    }
+  ],
+  "consumers": [
+    {
+      "id": "consumer-a",
+      "schema": "expert-package-v2",
+      "mode": "range",
+      "minimum": "1.0.0",
+      "maximum": "1.1.0",
+      "major": 1
+    },
+    {
+      "id": "consumer-b",
+      "schema": "expert-package-v2",
+      "mode": "range",
+      "minimum": "1.0.2",
+      "maximum": "1.2.0",
+      "major": 1
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "SNAP-045-A",
+      "field": "path",
+      "replacement": "registry/redirected-v2-1.1.0.json",
+      "expected_baseline": "handed:expert-package-v2:1.1.0:registry/redirected-v2-1.1.0.json:e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca",
+      "expected_candidate": "handed:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json:e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    },
+    {
+      "id": "SNAP-045-B",
+      "field": "sha256",
+      "replacement": "0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_baseline": "handed:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json:0000000000000000000000000000000000000000000000000000000000000000",
+      "expected_candidate": "handed:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json:e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    },
+    {
+      "id": "SNAP-045-C",
+      "field": "version",
+      "replacement": "1.2.0",
+      "expected_baseline": "handed:expert-package-v2:1.2.0:registry/expert-package-v2-1.1.0.json:e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca",
+      "expected_candidate": "handed:expert-package-v2:1.1.0:registry/expert-package-v2-1.1.0.json:e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    }
+  ],
+  "expected_baseline_correct": 0,
+  "expected_candidate_correct": 3,
+  "expected_shared_reference_drifts": 3,
+  "expected_snapshot_drifts": 0,
+  "expected_decision": "retain-default-and-quarantine-immutable-selection-snapshot"
+}
