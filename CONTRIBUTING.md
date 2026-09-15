@@ -280,6 +280,12 @@ SHA-256, or version per case and performs no artifact load or repository write. 
 establish nested-object isolation, concurrent-mutation safety, provenance authenticity, package
 behavior, production readiness, behavioral capability, or self-improvement.
 
+The EXP-046 evaluator adds one synthetic nested provenance member to the selected descriptor and
+compares shared-reference, shallow-copy, and deterministic deep byte snapshots under three locked
+single-leaf mutations. It performs no artifact load or repository write. Passing does not establish
+concurrent-mutation safety, general object-graph isolation, provenance authenticity, package
+behavior, production readiness, behavioral capability, or self-improvement.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

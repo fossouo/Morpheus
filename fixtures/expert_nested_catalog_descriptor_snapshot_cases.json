@@ -1,0 +1,95 @@
+{
+  "schema": "expert-nested-catalog-descriptor-snapshot-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-045",
+    "path": "experiments/EXP-045-catalog-descriptor-snapshot.md",
+    "sha256": "43dccb585b49e37af9cba5bc1451dae00763a446ef6b7145cf8343d2cafd4a01"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_catalog_descriptor_snapshot_cases.json",
+    "sha256": "09993801cb697e6becf45400f2e8cc0eac2730936abc3605c9b274251e7e17d4"
+  },
+  "prior_evaluator": {
+    "path": "scripts/evaluate_catalog_descriptor_snapshot.py",
+    "sha256": "c2831b4356c8ceb788ea435af5bc0ed96a96a9c749ad58c86b3f3090199b2fda"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "reference_date": "2026-09-01",
+  "artifacts": [
+    {
+      "id": "v2-1-0-2",
+      "schema": "expert-package-v2",
+      "version": "1.0.2",
+      "path": "registry/expert-package-v2-1.0.2.json",
+      "sha256": "735f227fd43b30b76a2034e549c585759ec72ad78dd6f41444f79febcd563ec5"
+    },
+    {
+      "id": "v2-1-1-0",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    }
+  ],
+  "consumers": [
+    {
+      "id": "consumer-a",
+      "schema": "expert-package-v2",
+      "mode": "range",
+      "minimum": "1.0.0",
+      "maximum": "1.1.0",
+      "major": 1
+    },
+    {
+      "id": "consumer-b",
+      "schema": "expert-package-v2",
+      "mode": "range",
+      "minimum": "1.0.2",
+      "maximum": "1.2.0",
+      "major": 1
+    }
+  ],
+  "nested_member": {
+    "provenance": {
+      "source": {
+        "id": "synthetic-source-a",
+        "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "claim_ids": [
+        "synthetic-claim-a",
+        "synthetic-claim-b"
+      ],
+      "attestations": {
+        "reviewed": true,
+        "scope": "synthetic-only"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "id": "NEST-046-A",
+      "path": ["provenance", "source", "id"],
+      "replacement": "synthetic-source-mutated"
+    },
+    {
+      "id": "NEST-046-B",
+      "path": ["provenance", "claim_ids", 0],
+      "replacement": "synthetic-claim-mutated"
+    },
+    {
+      "id": "NEST-046-C",
+      "path": ["provenance", "attestations", "reviewed"],
+      "replacement": false
+    }
+  ],
+  "expected_shared_correct": 0,
+  "expected_shallow_correct": 0,
+  "expected_deep_correct": 3,
+  "expected_shared_drifts": 3,
+  "expected_shallow_drifts": 3,
+  "expected_deep_drifts": 0,
+  "expected_decision": "retain-default-and-quarantine-deep-selection-snapshot"
+}

@@ -50,6 +50,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-043 | Joint template compatibility intersection | complete | pass |
 | EXP-044 | Joint template pinned materialization | complete | pass |
 | EXP-045 | Catalog descriptor selection snapshot | complete | pass |
+| EXP-046 | Nested catalog descriptor selection snapshot | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
