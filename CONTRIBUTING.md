@@ -36,6 +36,8 @@ python3 scripts/evaluate_template_compatibility_policy.py
 python3 scripts/evaluate_template_joint_compatibility.py
 python3 scripts/evaluate_joint_template_pinned_materialization.py
 python3 scripts/evaluate_catalog_descriptor_snapshot.py
+python3 scripts/evaluate_nested_catalog_descriptor_snapshot.py
+python3 scripts/evaluate_shared_alias_snapshot.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -285,6 +287,13 @@ compares shared-reference, shallow-copy, and deterministic deep byte snapshots u
 single-leaf mutations. It performs no artifact load or repository write. Passing does not establish
 concurrent-mutation safety, general object-graph isolation, provenance authenticity, package
 behavior, production readiness, behavioral capability, or self-improvement.
+
+The EXP-047 evaluator places one synthetic nested object under two selected-descriptor fields and
+compares direct reference, shallow copy, `copy.deepcopy`, and deterministic JSON round-trip
+handoffs under three locked single-leaf mutations. It performs no artifact load or repository
+write. Passing does not establish general graph serialization, cycle or custom-copy-hook safety,
+concurrent-mutation safety, provenance authenticity, package behavior, production readiness,
+behavioral capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability

@@ -1,0 +1,95 @@
+{
+  "schema": "expert-shared-alias-snapshot-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-046",
+    "path": "experiments/EXP-046-nested-catalog-descriptor-snapshot.md",
+    "sha256": "4342f49709965ac869c0da9f872f28c5e9244fd475504e308463f08278b7f4aa"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_nested_catalog_descriptor_snapshot_cases.json",
+    "sha256": "57d6d3ea20525876e71649fdb2f5e1a2955f71772ded5201d0acb9034a48d03b"
+  },
+  "prior_evaluator": {
+    "path": "scripts/evaluate_nested_catalog_descriptor_snapshot.py",
+    "sha256": "ada643300c76c370977a7c7f8d2c6181b076cb16017d3e732bc3910c662f80f7"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "reference_date": "2026-09-01",
+  "artifacts": [
+    {
+      "id": "v2-1-0-2",
+      "schema": "expert-package-v2",
+      "version": "1.0.2",
+      "path": "registry/expert-package-v2-1.0.2.json",
+      "sha256": "735f227fd43b30b76a2034e549c585759ec72ad78dd6f41444f79febcd563ec5"
+    },
+    {
+      "id": "v2-1-1-0",
+      "schema": "expert-package-v2",
+      "version": "1.1.0",
+      "path": "registry/expert-package-v2-1.1.0.json",
+      "sha256": "e0c57fc23cac89712097463b089fcca816ff9136b338d5e74efd4832a14ca2ca"
+    }
+  ],
+  "consumers": [
+    {
+      "id": "consumer-a",
+      "schema": "expert-package-v2",
+      "mode": "range",
+      "minimum": "1.0.0",
+      "maximum": "1.1.0",
+      "major": 1
+    },
+    {
+      "id": "consumer-b",
+      "schema": "expert-package-v2",
+      "mode": "range",
+      "minimum": "1.0.2",
+      "maximum": "1.2.0",
+      "major": 1
+    }
+  ],
+  "shared_fields": ["provenance", "verification"],
+  "shared_member": {
+    "source": {
+      "id": "synthetic-source-a",
+      "digest": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "claim_ids": [
+      "synthetic-claim-a",
+      "synthetic-claim-b"
+    ],
+    "attestations": {
+      "reviewed": true,
+      "scope": "synthetic-only"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "ALIAS-047-A",
+      "path": ["source", "id"],
+      "replacement": "synthetic-source-mutated"
+    },
+    {
+      "id": "ALIAS-047-B",
+      "path": ["claim_ids", 0],
+      "replacement": "synthetic-claim-mutated"
+    },
+    {
+      "id": "ALIAS-047-C",
+      "path": ["attestations", "reviewed"],
+      "replacement": false
+    }
+  ],
+  "expected_shared_correct": 3,
+  "expected_shallow_correct": 3,
+  "expected_deepcopy_correct": 3,
+  "expected_json_correct": 0,
+  "expected_deepcopy_source_isolations": 3,
+  "expected_json_source_isolations": 3,
+  "expected_json_alias_losses": 3,
+  "expected_decision": "retain-default-and-quarantine-topology-aware-deepcopy"
+}
