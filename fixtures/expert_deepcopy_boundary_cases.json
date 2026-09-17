@@ -1,0 +1,38 @@
+{
+  "schema": "expert-deepcopy-boundary-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-047",
+    "path": "experiments/EXP-047-shared-alias-snapshot.md",
+    "sha256": "683b07dc09c9d593398cbefe923c271f992baa059fc5210c3f55fef6c50d7e66"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_shared_alias_snapshot_cases.json",
+    "sha256": "d00f45ceeee80ddc453159082b0894fb366c61f375d9aa1fe14f9d164232cc49"
+  },
+  "prior_evaluator": {
+    "path": "scripts/evaluate_shared_alias_snapshot.py",
+    "sha256": "da02558df66b56cfd593dc461a739c998551f7751e136feb6d17feaa39c44243"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "cycle_case": {
+    "id": "COPY-048-CYCLE",
+    "root_label": "synthetic-cycle-root",
+    "payload_label": "synthetic-cycle-payload",
+    "replacement": "synthetic-cycle-mutated",
+    "expected_container_count": 3
+  },
+  "hook_case": {
+    "id": "COPY-048-HOOK",
+    "source_label": "synthetic-hook-source",
+    "expected_error": "unsupported-type:AdversarialCopyHook"
+  },
+  "maximum_containers": 16,
+  "expected_baseline_correct": 1,
+  "expected_candidate_correct": 2,
+  "expected_baseline_hook_calls": 1,
+  "expected_candidate_hook_calls": 0,
+  "expected_decision": "retain-default-and-quarantine-data-only-deepcopy-gate"
+}

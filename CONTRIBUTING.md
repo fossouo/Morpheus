@@ -38,6 +38,7 @@ python3 scripts/evaluate_joint_template_pinned_materialization.py
 python3 scripts/evaluate_catalog_descriptor_snapshot.py
 python3 scripts/evaluate_nested_catalog_descriptor_snapshot.py
 python3 scripts/evaluate_shared_alias_snapshot.py
+python3 scripts/evaluate_deepcopy_boundary.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -294,6 +295,12 @@ handoffs under three locked single-leaf mutations. It performs no artifact load 
 write. Passing does not establish general graph serialization, cycle or custom-copy-hook safety,
 concurrent-mutation safety, provenance authenticity, package behavior, production readiness,
 behavioral capability, or self-improvement.
+
+The EXP-048 evaluator compares unguarded `copy.deepcopy` with an identity-memoized exact-built-in
+data-graph gate over one cyclic graph and one synthetic adversarial `__deepcopy__` hook. The gate
+remains quarantined. Passing does not establish arbitrary-object safety, resource-exhaustion
+resistance, time-of-check/time-of-use safety, concurrency safety, package behavior, production
+readiness, behavioral capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
