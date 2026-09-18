@@ -53,6 +53,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-046 | Nested catalog descriptor selection snapshot | complete | pass |
 | EXP-047 | Shared-alias selection snapshot | complete | pass |
 | EXP-048 | Bounded deepcopy graph boundary | complete | pass |
+| EXP-049 | Deepcopy window mutation detection | complete | fail |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 

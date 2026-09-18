@@ -1,0 +1,48 @@
+{
+  "schema": "expert-deepcopy-window-mutation-cases-v1",
+  "prior_experiment": {
+    "id": "EXP-048",
+    "path": "experiments/EXP-048-deepcopy-boundary.md",
+    "sha256": "1f32150516296355064fe3a57526b9dfae425b8c6eb75aca3dfe9ba5f23d700f"
+  },
+  "prior_fixture": {
+    "path": "fixtures/expert_deepcopy_boundary_cases.json",
+    "sha256": "76e69005e9b19dbb1e6f5213f554f84231e482525cb808625a12fbbb23ef2dc0"
+  },
+  "prior_evaluator": {
+    "path": "scripts/evaluate_deepcopy_boundary.py",
+    "sha256": "2c72294002a9685701f729fc671f81d955a555390bf4e75f3022f28e975495aa"
+  },
+  "base_template": {
+    "path": "templates/expert-package-v2.json",
+    "sha256": "866869ff8d1df6370d149caad031ab1dea6339daf393c333232d6cc1bc0645cd"
+  },
+  "cases": [
+    {
+      "id": "COPY-049-CONTROL",
+      "mutation": "none",
+      "root_label": "synthetic-window-root",
+      "payload_label": "synthetic-window-payload",
+      "replacement": "synthetic-window-replaced",
+      "expected_baseline": "accept",
+      "expected_candidate": "accept"
+    },
+    {
+      "id": "COPY-049-SCALAR",
+      "mutation": "replace-payload-label",
+      "root_label": "synthetic-window-root",
+      "payload_label": "synthetic-window-payload",
+      "replacement": "synthetic-window-replaced",
+      "expected_baseline": "reject",
+      "expected_candidate": "reject"
+    }
+  ],
+  "maximum_containers": 16,
+  "expected_container_count": 3,
+  "expected_baseline_correct": 1,
+  "expected_candidate_correct": 2,
+  "expected_baseline_silent_drifts": 1,
+  "expected_candidate_detected_mutations": 1,
+  "expected_candidate_error": "source-changed-during-copy-window",
+  "expected_decision": "retain-default-and-quarantine-window-integrity-gate"
+}

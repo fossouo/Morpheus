@@ -39,6 +39,7 @@ python3 scripts/evaluate_catalog_descriptor_snapshot.py
 python3 scripts/evaluate_nested_catalog_descriptor_snapshot.py
 python3 scripts/evaluate_shared_alias_snapshot.py
 python3 scripts/evaluate_deepcopy_boundary.py
+python3 scripts/evaluate_deepcopy_window_mutation.py
 python3 scripts/check_public_safety.py .
 ```
 
@@ -301,6 +302,14 @@ data-graph gate over one cyclic graph and one synthetic adversarial `__deepcopy_
 remains quarantined. Passing does not establish arbitrary-object safety, resource-exhaustion
 resistance, time-of-check/time-of-use safety, concurrency safety, package behavior, production
 readiness, behavioral capability, or self-improvement.
+
+The EXP-049 evaluator was intended to inject one deterministic built-in scalar mutation after
+EXP-048's preflight and before `deepcopy` returns. Its locked direct invocation failed before
+fixture loading because the entry point could not resolve its repository-module import; running the
+evaluator directly reproduces that failure and is expected to exit non-zero. Importable unit checks
+do not replace the failed measurement. The candidate remains quarantined, and the result establishes
+no mutation detection, atomicity, real concurrency safety, arbitrary-object safety, package
+behavior, production readiness, behavioral capability, or self-improvement.
 
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
