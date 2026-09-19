@@ -311,6 +311,13 @@ do not replace the failed measurement. The candidate remains quarantined, and th
 no mutation detection, atomicity, real concurrency safety, arbitrary-object safety, package
 behavior, production readiness, behavioral capability, or self-improvement.
 
+The EXP-050 evaluator replays EXP-049 with only a repository-root import bootstrap before importing
+the unchanged failed evaluator. It pins EXP-049 and reuses its exact fixture and thresholds. The
+locked run passed, establishing only entry-point reproducibility and deterministic mutation
+detection for the two synthetic cases; it does not establish atomicity, real concurrency safety,
+arbitrary-object safety, package behavior, production readiness, behavioral capability, or
+self-improvement.
+
 Never submit private infrastructure details, secrets, raw logs, private datasets, model
 weights, or identifying system metadata. Report resources using the anonymous capability
 envelope.

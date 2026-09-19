@@ -54,6 +54,7 @@ Every experiment uses [`templates/experiment.md`](../templates/experiment.md).
 | EXP-047 | Shared-alias selection snapshot | complete | pass |
 | EXP-048 | Bounded deepcopy graph boundary | complete | pass |
 | EXP-049 | Deepcopy window mutation detection | complete | fail |
+| EXP-050 | Deepcopy window mutation replay | complete | pass |
 
 Status values: `planned`, `running`, `complete`, `blocked`, `superseded`.
 
